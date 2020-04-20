@@ -2,34 +2,18 @@
 <html>
 <head>
     <title>ServletExample</title>
-    <link rel="stylesheet" href="https://yarnpkg.com/en/package/normalize.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="text-center">Przeliczanie wartości towaru</h1>
-            </div>
-            <div class="modal-body">
-                <form class="form col-md-12 center-block" action="margin_calculator" method="post">
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-lg btn-block" name="act" value="margin">Wylicz marżę</button>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-lg btn-block" name="act" value="products">Pokaż produkty</button>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-lg btn-block" name="act" value="dd">Wylicz marżę</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
+<div class="container-fluid">
+    <h1 class="text-center">Przeliczanie wartości towaru</h1>
 
-            </div>
-        </div>
-    </div>
+    <form class="form col-lg-4 col-md-8 col-sm-12 mx-auto" action="margin_calculator" method="post">
+        <button class="btn btn-primary btn-lg btn-block" name="act" value="margin">Wylicz marżę</button>
+        <button class="btn btn-primary btn-lg btn-block" name="act" value="products">Pokaż produkty</button>
+        <button class="btn btn-primary btn-lg btn-block" name="act" value="dd">Wylicz marżę</button>
+    </form>
 </div>
+
 </body>
 </html>
