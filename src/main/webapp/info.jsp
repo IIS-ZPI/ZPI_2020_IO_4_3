@@ -16,7 +16,7 @@
                 <option value="Sausage">Sausage</option>
             </select>
             <input type="text" class="form-control input-lg" name="margin" required placeholder="Minimalna marża"/>
-            <input type="text" class="form-control input-lg" name="stock_price" required placeholder="Cena hurtowa"/>
+            <input type="text" class="form-control input-lg" name="wholesale_price" required placeholder="Cena hurtowa"/>
         </div>
         <div class="form-group">
             <button class="btn btn-primary btn-lg btn-block" name="act" value="margin_calculate">Przelicz</button>

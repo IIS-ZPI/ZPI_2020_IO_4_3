@@ -1,13 +1,11 @@
 package edu.zpi.taxescalculator;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +18,9 @@ public class Servlet extends HttpServlet {
         } else if (str.equalsIgnoreCase("margin_calculate")) {
             String productName = request.getParameter("product");
             int margin = Integer.parseInt(request.getParameter("margin"));
-            int stockPrice = Integer.parseInt(request.getParameter("stock_price"));
+            int wholesalePrice = Integer.parseInt(request.getParameter("wholesale_price"));
 
-            Product product = new Product(productName, stockPrice, margin);
+            Product product = new Product(productName, wholesalePrice, margin);
 
             List<State> states = new ArrayList<>();
             states.add(new State("Arizona", 0.056));
@@ -35,9 +33,9 @@ public class Servlet extends HttpServlet {
 
             margins.forEach((key, value) -> {
                 entries.add(new MarginTableEntry(key.getStateName(),
-                        product.getStockPrice(),
+                        product.getWholesalePrice(),
                         value,
-                        (stockPrice + value) * (1 + key.getBaseTax()),
+                        (wholesalePrice + value) * (1 + key.getBaseTax()),
                         key.getBaseTax() * 100.0
                 ));
             });

@@ -28,7 +28,7 @@
                 <fmt:formatNumber var="base_tax" value="${entry.baseTax}" maxFractionDigits="2"/>
                 <tr>
                     <td>${entry.stateName}</td>
-                    <td>${entry.stockPrice}</td>
+                    <td>${entry.wholesalePrice}</td>
                     <td>${margin}</td>
                     <td>${price}</td>
                     <td>${base_tax}</td>

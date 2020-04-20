@@ -1,15 +1,27 @@
 package edu.zpi.taxescalculator;
 
+/**
+ * CLass represents a single entry for margins table
+ */
+
 public class MarginTableEntry {
     private String stateName;
-    private double stockPrice;
+    private double wholesalePrice;
     private double margin;
     private double price;
     private double baseTax;
 
-    public MarginTableEntry(String stateName, double stockPrice, double margin, double price, double baseTax) {
+    /**
+     * Create a new instance of MarginTableEntry
+     * @param stateName Name of the state
+     * @param wholesalePrice Price in stock
+     * @param margin Purchase margin
+     * @param price Final price
+     * @param baseTax Basic tax
+     */
+    public MarginTableEntry(String stateName, double wholesalePrice, double margin, double price, double baseTax) {
         this.stateName = stateName;
-        this.stockPrice = stockPrice;
+        this.wholesalePrice = wholesalePrice;
         this.margin = margin;
         this.price = price;
         this.baseTax = baseTax;
@@ -23,12 +35,12 @@ public class MarginTableEntry {
         this.stateName = stateName;
     }
 
-    public double getStockPrice() {
-        return stockPrice;
+    public double getWholesalePrice() {
+        return wholesalePrice;
     }
 
-    public void setStockPrice(double stockPrice) {
-        this.stockPrice = stockPrice;
+    public void setWholesalePrice(double wholesalePrice) {
+        this.wholesalePrice = wholesalePrice;
     }
 
     public double getMargin() {
