@@ -15,7 +15,7 @@
                 <h1 class="text-center">Przeliczanie wartości towaru</h1>
             </div>
             <div class="modal-body">
-                <h1>${product}</h1>
+                <h1>${productName}</h1>
                 <table class="table">
                     <thead>
                         <tr>
@@ -27,16 +27,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${states}" var="state">
-                            <c:set var="margin" value="${max_price / (1 + state.baseTax) - stock_price}" />
-                            <c:set var="price" value="${(stock_price + margin) * (1 + state.baseTax)}" />
-                            <c:set var="base_tax" value="${state.baseTax * 100}" />
-                            <fmt:formatNumber var="margin" value="${margin}" maxFractionDigits="2" />
-                            <fmt:formatNumber var="price" value="${price}" maxFractionDigits="2" />
-                            <fmt:formatNumber var="base_tax" value="${base_tax}" maxFractionDigits="2" />
+                        <c:forEach items="${entries}" var="entry">
+                            <fmt:formatNumber var="margin" value="${entry.margin}" maxFractionDigits="2" />
+                            <fmt:formatNumber var="price" value="${entry.price}" maxFractionDigits="2" />
+                            <fmt:formatNumber var="base_tax" value="${entry.baseTax}" maxFractionDigits="2" />
                             <tr>
-                                <td>${state.stateName}</td>
-                                <td>${stock_price}</td>
+                                <td>${entry.stateName}</td>
+                                <td>${entry.stockPrice}</td>
                                 <td>${margin}</td>
                                 <td>${price}</td>
                                 <td>${base_tax}</td>
