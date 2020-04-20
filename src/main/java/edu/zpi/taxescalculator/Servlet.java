@@ -1,3 +1,5 @@
+package edu.zpi.taxescalculator;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "Servlet", urlPatterns = "/margin_calculator")
+@WebServlet(name = "edu.zpi.taxescalculator.Servlet", urlPatterns = "/margin_calculator")
 public class Servlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String str = request.getParameter("act");

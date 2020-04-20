@@ -1,3 +1,5 @@
+package edu.zpi.taxescalculator;
+
 public class State {
     private String stateName;
     private double baseTax;
