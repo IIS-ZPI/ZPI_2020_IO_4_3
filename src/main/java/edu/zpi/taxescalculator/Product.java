@@ -1,23 +1,21 @@
 package edu.zpi.taxescalculator;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Product {
     private String productName;
     private double stockPrice;
     private double minMargin;
-    private Map<State, Double> margins;
+    private SortedMap<State, Double> margins;
 
     public Product(String productName, double stockPrice, double minMargin) {
         this.productName = productName;
         this.stockPrice = stockPrice;
         this.minMargin = minMargin;
-        margins = new HashMap<>();
+        margins = new TreeMap<>();
     }
 
-    public Map<State, Double> calculateMargins(List<State> states) {
+    public SortedMap<State, Double> calculateMargins(List<State> states) {
         double maxTax = states.stream().mapToDouble(State::getBaseTax).max().orElse(0);
         double maxPrice = (stockPrice + minMargin) * (1 + maxTax);
         states.forEach(state -> {
@@ -44,7 +42,7 @@ public class Product {
         this.stockPrice = stockPrice;
     }
 
-    public Map<State, Double> getMargins() {
+    public SortedMap<State, Double> getMargins() {
         return margins;
     }
 

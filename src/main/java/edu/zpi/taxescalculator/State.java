@@ -1,6 +1,6 @@
 package edu.zpi.taxescalculator;
 
-public class State {
+public class State implements Comparable<State> {
     private String stateName;
     private double baseTax;
 
@@ -23,5 +23,10 @@ public class State {
 
     public void setBaseTax(double baseTax) {
         this.baseTax = baseTax;
+    }
+
+    @Override
+    public int compareTo(State o) {
+        return this.stateName.compareTo(o.stateName);
     }
 }
