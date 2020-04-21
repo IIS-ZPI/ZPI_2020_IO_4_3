@@ -6,8 +6,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @WebServlet(name = "edu.zpi.taxescalculator.Servlet", urlPatterns = "/margin_calculator")
 public class Servlet extends HttpServlet {
@@ -16,9 +18,13 @@ public class Servlet extends HttpServlet {
         if (str.equalsIgnoreCase("margin")) {
             request.getRequestDispatcher("info.jsp").forward(request, response);
         } else if (str.equalsIgnoreCase("margin_calculate")) {
+            NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+            nf.setMaximumFractionDigits(2);
+            nf.setMinimumFractionDigits(2);
+
             String productName = request.getParameter("product");
-            int margin = Integer.parseInt(request.getParameter("margin"));
-            int wholesalePrice = Integer.parseInt(request.getParameter("wholesale_price"));
+            double margin = Double.parseDouble(request.getParameter("margin"));
+            double wholesalePrice = Double.parseDouble(request.getParameter("wholesale_price"));
 
             Product product = new Product(productName, wholesalePrice, margin);
 
@@ -33,10 +39,11 @@ public class Servlet extends HttpServlet {
 
             margins.forEach((key, value) -> {
                 entries.add(new MarginTableEntry(key.getStateName(),
-                        product.getWholesalePrice(),
-                        value,
-                        (wholesalePrice + value) * (1 + key.getBaseTax()),
-                        key.getBaseTax() * 100.0
+                        nf.format(product.getWholesalePrice()),
+                        nf.format(value),
+                        nf.format((wholesalePrice + value) * (1 + key.getBaseTax())),
+                        nf.format(key.getBaseTax() * 100),
+                        nf.format(wholesalePrice + value)
                 ));
             });
 
