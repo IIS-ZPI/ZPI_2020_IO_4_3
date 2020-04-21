@@ -33,8 +33,8 @@
                 <option value="Eggs">Eggs</option>
                 <option value="Sausage">Sausage</option>
             </select>
-            <input type="text" pattern="\d+(\.\d{2})?" class="form-control col-12 mb-2" name="margin" required placeholder="Minimalna marża (np. 11.4)"/>
-            <input type="text" pattern="\d+(\.\d{2})?" class="form-control col-12" name="wholesale_price" required placeholder="Cena hurtowa (np. 140.23)"/>
+            <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control col-12 mb-2" name="margin" required placeholder="Minimalna marża (np. 11.4)"/>
+            <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control col-12" name="wholesale_price" required placeholder="Cena hurtowa (np. 140.23)"/>
         </div>
         <div class="form-group">
             <button class="btn btn-default btn-lg btn-block my-3" name="act" value="margin_calculate">Przelicz</button>
