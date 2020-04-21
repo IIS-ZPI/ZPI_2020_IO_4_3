@@ -1,4 +1,9 @@
-package edu.zpi.taxescalculator;
+package edu.zpi.taxescalculator.servlets;
+
+import edu.zpi.taxescalculator.utils.MarginTableEntry;
+import edu.zpi.taxescalculator.utils.Product;
+import edu.zpi.taxescalculator.utils.State;
+import edu.zpi.taxescalculator.utils.TaxDataParser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,13 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@WebServlet(name = "edu.zpi.taxescalculator.Servlet", urlPatterns = "/margin_calculator")
-public class Servlet extends HttpServlet {
+@WebServlet(name = "CalculateMarginServlet", urlPatterns = "/product_description/margin_calculator")
+public class CalculateMarginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String str = request.getParameter("act");
-        if (str.equalsIgnoreCase("margin")) {
-            request.getRequestDispatcher("info.jsp").forward(request, response);
-        } else if (str.equalsIgnoreCase("margin_calculate")) {
+
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getParameter("product") == null
+                || request.getParameter("margin") == null
+                || request.getParameter("wholesale_price") == null)
+        {
+            response.sendRedirect("/product_description");
+        }
+        else {
             NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
             nf.setMaximumFractionDigits(2);
             nf.setMinimumFractionDigits(2);
@@ -29,9 +41,10 @@ public class Servlet extends HttpServlet {
             Product product = new Product(productName, wholesalePrice, margin);
 
             List<State> states = new ArrayList<>();
-            states.add(new State("Arizona", 0.056));
-            states.add(new State("California", 0.0725));
-            states.add(new State("Florida", 0.06));
+            var statesMap = TaxDataParser.fromURL("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
+            statesMap.forEach((k, v) -> {
+                states.add(new State(k, v / 100.0));
+            });
 
             var margins = product.calculateMargins(states);
 
@@ -49,11 +62,7 @@ public class Servlet extends HttpServlet {
 
             request.setAttribute("entries", entries);
             request.setAttribute("productName", productName);
-            request.getRequestDispatcher("margin.jsp").forward(request, response);
+            request.getRequestDispatcher("/margin.jsp").forward(request, response);
         }
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

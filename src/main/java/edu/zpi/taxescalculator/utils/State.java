@@ -1,4 +1,4 @@
-package edu.zpi.taxescalculator;
+package edu.zpi.taxescalculator.utils;
 
 /**
  * Class that stores the state and basicTax

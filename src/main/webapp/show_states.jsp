@@ -22,33 +22,25 @@
 </div>
 <script>
     $(function() {
-        $("#nav-placeholder").load("/nav.html");
+        $("#nav-placeholder").load("nav.html");
     });
 </script>
 <div class="container-fluid mt-5 pt-5">
-    <h1 class="text-center">Tabela marży</h1>
+    <h1 class="text-center">Tabela stanów</h1>
     <div class="row col-xl-6 col-lg-8 col-md-12 col-sm-12 mx-auto">
         <h1>${productName}</h1>
         <table class="table table-bordered">
             <thead class="default-color-dark white-text">
             <tr>
                 <td>Stan</td>
-                <td>Cena hurtowa</td>
-                <td>Marża</td>
-                <td>Cena bez podatku</td>
                 <td>Podatek (%)</td>
-                <td>Cena z podatkiem</td>
             </tr>
             </thead>
             <tbody class="default-color white-text">
             <c:forEach items="${entries}" var="entry">
                 <tr>
                     <td>${entry.stateName}</td>
-                    <td>${entry.wholesalePrice}</td>
-                    <td>${entry.margin}</td>
-                    <td>${entry.priceWithoutTax}</td>
                     <td>${entry.baseTax}</td>
-                    <td>${entry.price}</td>
                 </tr>
             </c:forEach>
             </tbody>

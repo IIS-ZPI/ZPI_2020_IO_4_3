@@ -1,4 +1,4 @@
-package edu.zpi.taxescalculator;
+package edu.zpi.taxescalculator.utils;
 
 /**
  * CLass represents a single entry for margins table

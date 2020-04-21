@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>ServletExample</title>
+    <title>TaxCalculator</title>
     <link href="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
@@ -15,7 +15,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
 </head>
 <body>
-<div id="nav-placeholder">
+<div id="nav-placeholder" class="fixed-top">
 
 </div>
 <script>
@@ -23,13 +23,12 @@
         $("#nav-placeholder").load("nav.html");
     });
 </script>
-<div class="container-fluid">
+<div class="container-fluid mt-5 pt-5">
     <h1 class="text-center">Przeliczanie wartości towaru</h1>
 
-    <form class="form col-lg-4 col-md-8 col-sm-12 mx-auto" action="margin_calculator" method="post">
+    <form class="form col-lg-4 col-md-8 col-sm-12 mx-auto" action="index" method="get">
         <button class="btn btn-default btn-lg my-3 btn-block" name="act" value="margin">Wylicz marżę</button>
-        <button class="btn btn-default btn-lg my-3 btn-block" name="act" value="products">Pokaż produkty</button>
-        <button class="btn btn-default btn-lg my-3 btn-block" name="act" value="dd">Wylicz marżę</button>
+        <button class="btn btn-default btn-lg my-3 btn-block" name="act" value="states">Pokaż podatki w konkretnych stanach</button>
     </form>
 </div>
 
