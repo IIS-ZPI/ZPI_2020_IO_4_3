@@ -16,44 +16,62 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
 </head>
-<body>
+
+<body style="	background-image: url('images/Fotoram.io.jpg');	background-position: top left;	background-size: 100%;	background-repeat: repeat;" >
+
 <div id="nav-placeholder" class="fixed-top">
 
 </div>
+
+<div class="text-center mt-5 pt-5" style="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 shadow mb-2 border border-default rounded">
+                <h1 class="">Tabela marży dla towaru:</h1>
+                <h3>${productName}</h3>
+            </div>
+        </div>
+        <div class="row shadow-lg border rounded border-default">
+            <div class="col-md-6" style="">
+                <img class="img-fluid d-block rounded my-2 mx-auto mt-4 w-75" src="https://static.pingendo.com/img-placeholder-1.svg">
+            </div>
+            <div class="mx-auto p-4 col-md-6 w-100" style="">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="default-color-dark white-text">
+                        <tr>
+                            <td>Stan</td>
+                            <td>Cena hurtowa</td>
+                            <td>Marża</td>
+                            <td>Cena bez podatku</td>
+                            <td>Podatek (%)</td>
+                            <td>Cena z podatkiem</td>
+                        </tr>
+                        </thead>
+                        <tbody class="default-color white-text">
+                            <c:forEach items="${entries}" var="entry">
+                                <tr>
+                                    <td>${entry.stateName}</td>
+                                    <td>${entry.wholesalePrice}</td>
+                                    <td>${entry.margin}</td>
+                                    <td>${entry.priceWithoutTax}</td>
+                                    <td>${entry.baseTax}</td>
+                                    <td>${entry.price}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(function() {
         $("#nav-placeholder").load("/nav.html");
     });
 </script>
-<div class="container-fluid mt-5 pt-5">
-    <h1 class="text-center">Tabela marży</h1>
-    <div class="row col-xl-6 col-lg-8 col-md-12 col-sm-12 mx-auto">
-        <h1>${productName}</h1>
-        <table class="table table-bordered">
-            <thead class="default-color-dark white-text">
-            <tr>
-                <td>Stan</td>
-                <td>Cena hurtowa</td>
-                <td>Marża</td>
-                <td>Cena bez podatku</td>
-                <td>Podatek (%)</td>
-                <td>Cena z podatkiem</td>
-            </tr>
-            </thead>
-            <tbody class="default-color white-text">
-            <c:forEach items="${entries}" var="entry">
-                <tr>
-                    <td>${entry.stateName}</td>
-                    <td>${entry.wholesalePrice}</td>
-                    <td>${entry.margin}</td>
-                    <td>${entry.priceWithoutTax}</td>
-                    <td>${entry.baseTax}</td>
-                    <td>${entry.price}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</div>
+
 </body>
 </html>
