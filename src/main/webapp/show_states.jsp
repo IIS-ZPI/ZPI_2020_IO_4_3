@@ -16,17 +16,20 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
 </head>
-<body>
+<body style="	background-image: url('images/Fotoram.io.jpg');	background-position: top left;	background-size: 100%;	background-repeat: repeat;" >
+
 <div id="nav-placeholder" class="fixed-top">
 
 </div>
-<script>
-    $(function() {
-        $("#nav-placeholder").load("nav.html");
-    });
-</script>
+
 <div class="container-fluid mt-5 pt-5">
-    <h1 class="text-center">Tabela stanów</h1>
+    <div class="container">
+        <div class="row shadow-lg border rounded border-default mb-3">
+            <div class="mx-auto p-4 col-md-7 h-50" >
+                <h1 class="text-center">Tabele stanów</h1>
+            </div>
+        </div>
+    </div>
     <div class="row col-xl-6 col-lg-8 col-md-12 col-sm-12 mx-auto">
         <h1>${productName}</h1>
         <table class="table table-bordered">
@@ -47,5 +50,12 @@
         </table>
     </div>
 </div>
+
+<script>
+    $(function() {
+        $("#nav-placeholder").load("nav.html");
+    });
+</script>
+
 </body>
 </html>

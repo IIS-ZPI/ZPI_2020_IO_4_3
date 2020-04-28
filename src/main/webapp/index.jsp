@@ -14,23 +14,36 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
 </head>
-<body>
+
+
+<body style="	background-image: url('images/Fotoram.io.jpg');	background-position: top left;	background-size: 100%;	background-repeat: repeat;" >
 <div id="nav-placeholder" class="fixed-top">
 
 </div>
+
+<div class="container-fluid mt-5 pt-5">
+    <div class="text-center mt-5 pt-5" style="">
+        <div class="container">
+            <div class="row shadow-lg border rounded border-default">
+                <div class="mx-auto p-4 col-md-7 h-50" >
+                    <h1 class="text-center mb-3" >Przeliczanie wartości towaru</h1>
+
+                    <form action="index" method="get">
+                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="margin" height: 50px;>Wylicz marżę</button>
+                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="states" height: 50px;>Pokaż podatki w konkretnych stanach</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(function() {
         $("#nav-placeholder").load("nav.html");
     });
 </script>
-<div class="container-fluid mt-5 pt-5">
-    <h1 class="text-center">Przeliczanie wartości towaru</h1>
-
-    <form class="form col-lg-4 col-md-8 col-sm-12 mx-auto" action="index" method="get">
-        <button class="btn btn-default btn-lg my-3 btn-block" name="act" value="margin">Wylicz marżę</button>
-        <button class="btn btn-default btn-lg my-3 btn-block" name="act" value="states">Pokaż podatki w konkretnych stanach</button>
-    </form>
-</div>
 
 </body>
+
 </html>
