@@ -27,7 +27,7 @@
             <div class="row shadow-lg border rounded border-default">
                 <div class="mx-auto p-4 col-md-7 h-50" >
                     <h1 class="text-center mb-3">Przeliczanie wartości towaru</h1>
-                    <form action="product_description/margin_calculator" method="get">
+                    <form action="product_description/product_price_selection" method="get">
                         <div class="form-group">
                             <select class="custom-select mb-2 custom-select-lg" name="product" required>
                                 <option value="" disabled selected>Wybierz produkt</option>
@@ -35,11 +35,9 @@
                                 <option value="Eggs">Eggs</option>
                                 <option value="Sausage">Sausage</option>
                             </select>
-                            <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg" name="margin" required placeholder="Minimalna marża (np. 11.4)"/>
-                            <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg" name="wholesale_price" required placeholder="Cena hurtowa (np. 140.23)"/>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-default btn-block w-100 btn-lg" style="height: 50px;">Przelicz</button>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="product" height: 50px;>Wybierz</button>
+                            </div>
                         </div>
                     </form>
                 </div>
