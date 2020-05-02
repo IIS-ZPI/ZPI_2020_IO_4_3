@@ -17,15 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@WebServlet(name = "ProductPriceSelection", urlPatterns = "/product_description/product_price_selection")
-public class ProductPriceSelection extends HttpServlet {
+@WebServlet(name = "ProductPriceSelection", urlPatterns = "/select_product_price")
+public class SelectProductPriceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("product") == null){
-            response.sendRedirect("/product_description");
+            response.sendRedirect("product_description");
         }
         else {
             NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
@@ -34,8 +34,8 @@ public class ProductPriceSelection extends HttpServlet {
 
             String productName = request.getParameter("product");
 
-            request.setAttribute("productName", productName);
-            request.getRequestDispatcher("/product_price_selection.jsp").forward(request, response);
+            request.setAttribute("product", productName);
+            request.getRequestDispatcher("/select_product_price.jsp").forward(request, response);
         }
     }
 }

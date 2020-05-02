@@ -5,6 +5,8 @@
     <link href="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
     <!-- JQuery -->
     <script type="text/javascript" src="//code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -16,7 +18,7 @@
 </head>
 
 
-<body style="	background-image: url('images/Fotoram.io.jpg');	background-position: top left;	background-size: 100%;	background-repeat: repeat;" >
+<body>
 <div id="nav-placeholder" class="fixed-top">
 
 </div>
@@ -27,7 +29,7 @@
             <div class="row shadow-lg border rounded border-default">
                 <div class="mx-auto p-4 col-md-7 h-50" >
                     <h1 class="text-center mb-3">Przeliczanie wartości towaru</h1>
-                    <form action="product_description/product_price_selection" method="get">
+                    <form action="select_product_price" method="get">
                         <div class="form-group">
                             <select class="custom-select mb-2 custom-select-lg" name="product" required>
                                 <option value="" disabled selected>Wybierz produkt</option>
@@ -36,7 +38,7 @@
                                 <option value="Sausage">Sausage</option>
                             </select>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="product" height: 50px;>Wybierz</button>
+                                <button type="submit" class="btn btn-default btn-block w-100 btn-lg">Wybierz</button>
                             </div>
                         </div>
                     </form>

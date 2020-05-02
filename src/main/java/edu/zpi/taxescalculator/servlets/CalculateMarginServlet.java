@@ -16,18 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@WebServlet(name = "CalculateMarginServlet", urlPatterns = "/product_description/product_price_selection/margin_calculator")
+@WebServlet(name = "CalculateMarginServlet", urlPatterns = "/margin_calculator")
 public class CalculateMarginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (//request.getParameter("product") == null ||
+        if (request.getParameter("product") == null ||
                 request.getParameter("margin") == null
                 || request.getParameter("wholesale_price") == null)
         {
-            response.sendRedirect("/product_description/product_price_selection");
+            response.sendRedirect("product_price_selection");
         }
         else {
             NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
@@ -61,7 +61,7 @@ public class CalculateMarginServlet extends HttpServlet {
             });
 
             request.setAttribute("entries", entries);
-            request.setAttribute("productName", productName);
+            request.setAttribute("product", productName);
             request.getRequestDispatcher("/margin.jsp").forward(request, response);
         }
     }

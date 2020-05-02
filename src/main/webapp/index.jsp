@@ -5,6 +5,7 @@
     <link href="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <!-- JQuery -->
     <script type="text/javascript" src="//code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -16,7 +17,7 @@
 </head>
 
 
-<body style="	background-image: url('images/Fotoram.io.jpg');	background-position: top left;	background-size: 100%;	background-repeat: repeat;" >
+<body>
 <div id="nav-placeholder" class="fixed-top">
 
 </div>
@@ -29,8 +30,8 @@
                     <h1 class="text-center mb-3" >Przeliczanie wartości towaru</h1>
 
                     <form action="index" method="get">
-                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="margin" height: 50px;>Wylicz marżę</button>
-                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="states" height: 50px;>Pokaż podatki w konkretnych stanach</button>
+                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="margin">Wylicz marżę</button>
+                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="states">Pokaż podatki w konkretnych stanach</button>
                     </form>
                 </div>
             </div>

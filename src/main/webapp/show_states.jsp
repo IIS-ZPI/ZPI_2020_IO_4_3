@@ -7,6 +7,7 @@
     <link href="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <!-- JQuery -->
     <script type="text/javascript" src="//code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -16,7 +17,7 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
 </head>
-<body style="	background-image: url('images/Fotoram.io.jpg');	background-position: top left;	background-size: 100%;	background-repeat: repeat;" >
+<body>
 
 <div id="nav-placeholder" class="fixed-top">
 
