@@ -24,7 +24,7 @@ public class Servlet extends HttpServlet {
         else {
             String str = request.getParameter("act");
             if (str.equalsIgnoreCase("margin")) {
-                response.sendRedirect("/product_description");
+                response.sendRedirect("/select_product");
             } else if (str.equalsIgnoreCase("states")) {
                 response.sendRedirect("/states");
             } else {
