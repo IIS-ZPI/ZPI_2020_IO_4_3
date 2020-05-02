@@ -13,13 +13,31 @@ steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
+    goals: 'clean'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+- task: AzureAppServiceManage@0
+  inputs:
+    azureSubscription: 'Azure dla studentów(5a415404-4d79-4667-a69b-9de4a8f51896)'
+    Action: 'Stop Azure App Service'
+    WebAppName: 'zpi-io4-3'
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
@@ -28,3 +46,8 @@ steps:
     WebAppName: 'zpi-io4-3'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.war'
     RuntimeStack: 'TOMCAT|8.5-java11'
+- task: AzureAppServiceManage@0
+  inputs:
+    azureSubscription: 'Azure dla studentów(5a415404-4d79-4667-a69b-9de4a8f51896)'
+    Action: 'Restart Azure App Service'
+    WebAppName: 'zpi-io4-3'
