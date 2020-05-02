@@ -22,9 +22,14 @@ steps:
     goals: 'package'
 - task: AzureRmWebAppDeployment@4
   inputs:
+- task: AzureRmWebAppDeployment@4
+  inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure dla studentów(5a415404-4d79-4667-a69b-9de4a8f51896)'
     appType: 'webAppLinux'
     WebAppName: 'zpi-io4-3'
+    deployToSlotOrASE: true
+    ResourceGroupName: 'cloud-shell-storage-westeurope'
+    SlotName: 'production'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.war'
     RuntimeStack: 'TOMCAT|8.5-java11'
