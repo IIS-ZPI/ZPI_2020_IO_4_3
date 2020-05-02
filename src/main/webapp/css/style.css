@@ -1,0 +1,7 @@
+body {
+    background-image: url('/images/Fotoram.io.jpg');	
+    background-position: top left;	
+    background-size: 100%;	
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

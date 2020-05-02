@@ -1,4 +1,4 @@
-package edu.zpi.taxescalculator;
+package edu.zpi.taxescalculator.utils;
 
 /**
  * CLass represents a single entry for margins table
@@ -6,10 +6,11 @@ package edu.zpi.taxescalculator;
 
 public class MarginTableEntry {
     private String stateName;
-    private double wholesalePrice;
-    private double margin;
-    private double price;
-    private double baseTax;
+    private String wholesalePrice;
+    private String margin;
+    private String price;
+    private String baseTax;
+    private String priceWithoutTax;
 
     /**
      * Create a new instance of MarginTableEntry
@@ -19,12 +20,13 @@ public class MarginTableEntry {
      * @param price Final price
      * @param baseTax Basic tax
      */
-    public MarginTableEntry(String stateName, double wholesalePrice, double margin, double price, double baseTax) {
+    public MarginTableEntry(String stateName, String wholesalePrice, String margin, String price, String baseTax, String priceWithoutTax) {
         this.stateName = stateName;
         this.wholesalePrice = wholesalePrice;
         this.margin = margin;
         this.price = price;
         this.baseTax = baseTax;
+        this.priceWithoutTax = priceWithoutTax;
     }
 
     public String getStateName() {
@@ -35,35 +37,43 @@ public class MarginTableEntry {
         this.stateName = stateName;
     }
 
-    public double getWholesalePrice() {
+    public String getWholesalePrice() {
         return wholesalePrice;
     }
 
-    public void setWholesalePrice(double wholesalePrice) {
+    public void setWholesalePrice(String wholesalePrice) {
         this.wholesalePrice = wholesalePrice;
     }
 
-    public double getMargin() {
+    public String getMargin() {
         return margin;
     }
 
-    public void setMargin(double margin) {
+    public void setMargin(String margin) {
         this.margin = margin;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public double getBaseTax() {
+    public String getBaseTax() {
         return baseTax;
     }
 
-    public void setBaseTax(double baseTax) {
+    public void setBaseTax(String baseTax) {
         this.baseTax = baseTax;
+    }
+
+    public String getPriceWithoutTax() {
+        return priceWithoutTax;
+    }
+
+    public void setPriceWithoutTax(String priceWithoutTax) {
+        this.priceWithoutTax = priceWithoutTax;
     }
 }

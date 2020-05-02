@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>TaxCalculator</title>
@@ -15,27 +17,38 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
 </head>
-
-
 <body>
+
 <div id="nav-placeholder" class="fixed-top">
 
 </div>
 
 <div class="container-fluid mt-5 pt-5">
-    <div class="text-center mt-5 pt-5" style="">
-        <div class="container">
-            <div class="row shadow-lg border rounded border-default">
-                <div class="mx-auto p-4 col-md-7 h-50" >
-                    <h1 class="text-center mb-3" >Przeliczanie wartości towaru</h1>
-
-                    <form action="index" method="get">
-                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="margin">Wylicz marżę</button>
-                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="states">Pokaż podatki w konkretnych stanach</button>
-                    </form>
-                </div>
+    <div class="container">
+        <div class="row shadow-lg border rounded border-default mb-3">
+            <div class="mx-auto p-4 col-md-7 h-50" >
+                <h1 class="text-center">Tabele stanów</h1>
             </div>
         </div>
+    </div>
+    <div class="row col-xl-6 col-lg-8 col-md-12 col-sm-12 mx-auto">
+        <h1>${productName}</h1>
+        <table class="table table-bordered">
+            <thead class="default-color-dark white-text">
+            <tr>
+                <td>Stan</td>
+                <td>Podatek (%)</td>
+            </tr>
+            </thead>
+            <tbody class="default-color white-text">
+            <c:forEach items="${entries}" var="entry">
+                <tr>
+                    <td>${entry.stateName}</td>
+                    <td>${entry.baseTax}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -46,5 +59,4 @@
 </script>
 
 </body>
-
 </html>
