@@ -10,8 +10,27 @@ public class Main {
         DataSourceProvider dataSourceProvider = new DataSourceProvider();
         dataSourceProvider.init();
         Reader r = new Reader(dataSourceProvider.getDataStatement());
-        ArrayList arrayList = r.getAllCategoryName();
+        ArrayList arrayList = r.getAllStateName();
         System.out.println(arrayList);
+
+        arrayList = r.getAllProductName();
+        System.out.println(arrayList);
+
+        arrayList = r.getAllCategoryName();
+        System.out.println(arrayList);
+
+        arrayList = r.getStateBaseTax("Michigan");
+        System.out.println(arrayList);
+
+        arrayList = r.getProductCategory("milk");
+        System.out.println(arrayList);
+
+        arrayList = r.getProductWholesalePrice("milk");
+        System.out.println(arrayList);
+
+        arrayList = r.getTaxValueBaseOnCategoryInState("Arkansas", "Groceries");
+        System.out.println(arrayList);
+
     }
 
 
