@@ -20,11 +20,10 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-- task: AzureRmWebAppDeployment@4
+- task: AzureWebApp@1
   inputs:
-    ConnectionType: 'AzureRM'
     azureSubscription: 'Azure dla studentów(5a415404-4d79-4667-a69b-9de4a8f51896)'
     appType: 'webAppLinux'
-    WebAppName: 'zpi-io4-3'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.war'
-    RuntimeStack: 'TOMCAT|8.5-java11'
+    appName: 'zpi-io4-3'
+    package: '$(System.DefaultWorkingDirectory)/**/*.war'
+    customDeployFolder: 'ROOT'
