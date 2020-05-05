@@ -1,9 +1,6 @@
 package edu.zpi.taxescalculator.servlets;
 
-import edu.zpi.taxescalculator.utils.MarginTableEntry;
-import edu.zpi.taxescalculator.utils.Product;
-import edu.zpi.taxescalculator.utils.State;
-import edu.zpi.taxescalculator.utils.TaxDataParser;
+import edu.zpi.taxescalculator.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @WebServlet(name = "CalculateMarginServlet", urlPatterns = "/margin_calculator")
 public class CalculateMarginServlet extends HttpServlet {
@@ -35,18 +30,26 @@ public class CalculateMarginServlet extends HttpServlet {
             nf.setMinimumFractionDigits(2);
 
             String productName = request.getParameter("product");
+            ProductCategory categoryName = ProductCategory.valueOf(request.getParameter("category").toUpperCase());
             double margin = Double.parseDouble(request.getParameter("margin"));
             double wholesalePrice = Double.parseDouble(request.getParameter("wholesale_price"));
 
             Product product = new Product(productName, wholesalePrice, margin);
 
-            List<State> states = new ArrayList<>();
-            var statesMap = TaxDataParser.fromURL("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
-            statesMap.forEach((k, v) -> {
-                states.add(new State(k, v / 100.0));
+            var statesAndCategoriesMap = TaxDataParser.fromUrlIncludeCategories("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
+            var statesAndTaxMap = new TreeMap<State, Double>();
+            statesAndCategoriesMap.forEach((k, v) -> {
+                var optionalCategoryTax = v.stream()
+                        .filter(el -> el.getProductCategory().equals(categoryName))
+                        .findFirst();
+                double tax = 0.0;
+                if (optionalCategoryTax.isPresent()) {
+                    tax = optionalCategoryTax.get().getTax() / 100.0;
+                }
+                statesAndTaxMap.put(k, tax);
             });
 
-            var margins = product.calculateMargins(states);
+            var margins = product.calculateMargins(statesAndTaxMap);
 
             List<MarginTableEntry> entries = new ArrayList<>();
 
@@ -54,14 +57,15 @@ public class CalculateMarginServlet extends HttpServlet {
                 entries.add(new MarginTableEntry(key.getStateName(),
                         nf.format(product.getWholesalePrice()),
                         nf.format(value),
-                        nf.format((wholesalePrice + value) * (1 + key.getBaseTax())),
-                        nf.format(key.getBaseTax() * 100),
-                        nf.format(wholesalePrice + value)
-                ));
+                        nf.format((wholesalePrice + value) * (1 + statesAndTaxMap.get(key))),
+                        nf.format(key.getBaseTax()),
+                        nf.format(wholesalePrice + value),
+                        nf.format(statesAndTaxMap.get(key) * 100)));
             });
 
             request.setAttribute("entries", entries);
             request.setAttribute("product", productName);
+            request.setAttribute("category", categoryName);
             request.getRequestDispatcher("/margin.jsp").forward(request, response);
         }
     }

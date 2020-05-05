@@ -11,6 +11,7 @@ public class MarginTableEntry {
     private String price;
     private String baseTax;
     private String priceWithoutTax;
+    private String finalTax;
 
     /**
      * Create a new instance of MarginTableEntry
@@ -19,14 +20,17 @@ public class MarginTableEntry {
      * @param margin Purchase margin
      * @param price Final price
      * @param baseTax Basic tax
+     * @param priceWithoutTax Product price without tax
+     * @param finalTax Final tax, which contains base tax and category tax
      */
-    public MarginTableEntry(String stateName, String wholesalePrice, String margin, String price, String baseTax, String priceWithoutTax) {
+    public MarginTableEntry(String stateName, String wholesalePrice, String margin, String price, String baseTax, String priceWithoutTax, String finalTax) {
         this.stateName = stateName;
         this.wholesalePrice = wholesalePrice;
         this.margin = margin;
         this.price = price;
         this.baseTax = baseTax;
         this.priceWithoutTax = priceWithoutTax;
+        this.finalTax = finalTax;
     }
 
     public String getStateName() {
@@ -75,5 +79,13 @@ public class MarginTableEntry {
 
     public void setPriceWithoutTax(String priceWithoutTax) {
         this.priceWithoutTax = priceWithoutTax;
+    }
+
+    public String getFinalTax() {
+        return finalTax;
+    }
+
+    public void setFinalTax(String finalTax) {
+        this.finalTax = finalTax;
     }
 }

@@ -25,9 +25,9 @@ public class ShowStatesServlet extends HttpServlet {
         nf.setMinimumFractionDigits(2);
         nf.setMaximumFractionDigits(2);
         List<StatesTableEntry> statesEntries = new ArrayList<>();
-        var statesMap = TaxDataParser.fromURL("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
+        var statesMap = TaxDataParser.fromUrlIncludeCategories("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
         statesMap.forEach((k, v) -> {
-            statesEntries.add(new StatesTableEntry(k, nf.format(v)));
+            statesEntries.add(new StatesTableEntry(k.getStateName(), nf.format(k.getBaseTax()), v));
         });
 
         request.setAttribute("entries", statesEntries);
