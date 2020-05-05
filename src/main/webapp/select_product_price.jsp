@@ -6,6 +6,7 @@
     <link href="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <link href="css/style.css" rel="stylesheet">
     <!-- JQuery -->
     <script type="text/javascript" src="//code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -15,6 +16,10 @@
     <script type="text/javascript" src="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
 </head>
 
 <body>
@@ -32,7 +37,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center"> ${product} </h2>
+                <h2 class="text-center"> ${product}, ${category.mapToPolishName()}</h2>
             </div>
         </div>
         <div class="row">
@@ -40,6 +45,7 @@
             <div class="col-md-6 mt-5">
                 <form action="margin_calculator" method="get">
                     <input type="hidden" name="product" value="${product}">
+                    <input type="hidden" name="category" value="${category}">
                     <div class="form-group row">
                         <div class="col-10 col-md-12" style="">
                             <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="margin" required placeholder="Minimalna marża (np. 11.4)">

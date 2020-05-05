@@ -27,14 +27,14 @@ public class Product {
 
     /**
      * Generate map of the states and the corresponding margin
-     * @param states List of states to calculate margins
+     * @param states Map of states and taxes to calculate margins
      * @return Map of states and margins, where Key is the state and Value is the corresponding margin
      */
-    public SortedMap<State, Double> calculateMargins(List<State> states) {
-        double maxTax = states.stream().mapToDouble(State::getBaseTax).max().orElse(0);
+    public SortedMap<State, Double> calculateMargins(Map<State, Double> states) {
+        double maxTax = states.values().stream().max(Double::compareTo).orElse(0.0);
         double maxPrice = (wholesalePrice + minMargin) * (1 + maxTax);
-        states.forEach(state -> {
-            double statePrice = maxPrice / (1 + state.getBaseTax());
+        states.forEach((state, tax) -> {
+            double statePrice = maxPrice / (1 + tax);
             double stateMargin = statePrice - wholesalePrice;
             margins.put(state, stateMargin);
         });

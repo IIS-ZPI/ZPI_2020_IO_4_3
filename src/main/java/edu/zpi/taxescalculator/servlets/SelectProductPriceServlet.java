@@ -1,10 +1,7 @@
 package edu.zpi.taxescalculator.servlets;
 
 
-import edu.zpi.taxescalculator.utils.MarginTableEntry;
-import edu.zpi.taxescalculator.utils.Product;
-import edu.zpi.taxescalculator.utils.State;
-import edu.zpi.taxescalculator.utils.TaxDataParser;
+import edu.zpi.taxescalculator.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,17 +21,14 @@ public class SelectProductPriceServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("product") == null){
+        if (request.getParameter("product") == null || request.getParameter("category") == null) {
             response.sendRedirect("product_description");
-        }
-        else {
-            NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
-            nf.setMaximumFractionDigits(2);
-            nf.setMinimumFractionDigits(2);
+        } else {
+            String product = request.getParameter("product");
+            ProductCategory category = ProductCategory.valueOf(request.getParameter("category").toUpperCase());
 
-            String productName = request.getParameter("product");
-
-            request.setAttribute("product", productName);
+            request.setAttribute("product", product);
+            request.setAttribute("category", category);
             request.getRequestDispatcher("/select_product_price.jsp").forward(request, response);
         }
     }
