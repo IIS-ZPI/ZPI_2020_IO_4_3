@@ -35,7 +35,7 @@
                     <h1 class="text-center mb-3" >Przeliczanie wartości towaru</h1>
 
                     <form action="index" method="get">
-                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="margin">Wylicz cenę końcową na podstawie minimalnej marży</button>
+                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="margin">Wylicz marżę</button>
                         <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="states">Pokaż podatki w konkretnych stanach</button>
                     </form>
                 </div>

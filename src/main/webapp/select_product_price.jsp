@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -46,14 +47,22 @@
                 <form action="margin_calculator" method="get">
                     <input type="hidden" name="product" value="${product}">
                     <input type="hidden" name="category" value="${category}">
+                    <input type="hidden" name="calculation_type" value="${calculation_type}">
                     <div class="form-group row">
                         <div class="col-10 col-md-12" style="">
-                            <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="margin" required placeholder="Minimalna marża (np. 11.4)">
+                            <c:choose>
+                                <c:when test="${calculation_type == 'min_margin'}">
+                                    <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="value_calc" required placeholder="Minimalna marża (np. 2.3)">
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="value_calc" required placeholder="Oczekiwana cena (np. 20.4)">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-10 col-md-12" style="">
-                            <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg" name="wholesale_price" required placeholder="Cena hurtowa (np. 140.23)">
+                            <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg" name="wholesale_price" required placeholder="Cena hurtowa (np. 14.23)">
                         </div>
                     </div>
                     <button type="submit"  class="btn btn-default btn-block w-100 btn-lg">Przelicz</button>
