@@ -55,7 +55,7 @@
                                     <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="value_calc" required placeholder="Minimalna marża (np. 2.3)">
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="value_calc" required placeholder="Maksymalna cena (np. 20.4)">
+                                    <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="value_calc" required placeholder="Oczekiwana cena (np. 20.4)">
                                 </c:otherwise>
                             </c:choose>
                         </div>

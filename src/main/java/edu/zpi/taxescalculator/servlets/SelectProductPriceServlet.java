@@ -26,7 +26,13 @@ public class SelectProductPriceServlet extends HttpServlet {
         } else {
             String product = request.getParameter("product");
             String calculation_type = request.getParameter("calculation_type");
-            ProductCategory category = ProductCategory.valueOf(request.getParameter("category").toUpperCase());
+            ProductCategory category = null;
+            try {
+                category = ProductCategory.valueOf(request.getParameter("category").toUpperCase());
+            } catch (IllegalArgumentException e) {
+                response.sendRedirect("select_product_price");
+                return;
+            }
 
             request.setAttribute("product", product);
             request.setAttribute("category", category);

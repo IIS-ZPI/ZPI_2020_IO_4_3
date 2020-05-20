@@ -55,7 +55,7 @@
                                     <input type="radio" name="calculation_type" autocomplete="off" checked value="min_margin"> Minimalna marża
                                 </label>
                                 <label class="btn btn-default">
-                                    <input type="radio" name="calculation_type" autocomplete="off" value="max_price"> Maksymalna cena
+                                    <input type="radio" name="calculation_type" autocomplete="off" value="expected_price"> Oczekiwana cena
                                 </label>
                             </div>
                             <div class="form-group">

@@ -57,7 +57,14 @@
                         </thead>
                         <tbody class="default-color white-text">
                             <c:forEach items="${entries}" var="entry">
-                                <tr>
+                                <c:choose>
+                                    <c:when test="${entry.margin / 1.0 < 0}">
+                                        <tr class="danger-color">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                    </c:otherwise>
+                                </c:choose>
                                     <td>${entry.stateName}</td>
                                     <td>${entry.wholesalePrice}</td>
                                     <td>${entry.margin}</td>
