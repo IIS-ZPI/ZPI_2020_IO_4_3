@@ -19,10 +19,11 @@ public class CalculateMarginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("product") == null ||
-                request.getParameter("margin") == null
-                || request.getParameter("wholesale_price") == null)
+                request.getParameter("value_calc") == null
+                || request.getParameter("wholesale_price") == null 
+                || request.getParameter("calculation_type") == null)
         {
-            response.sendRedirect("product_price_selection");
+            response.sendRedirect("select_product_price");
         }
         else {
             NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
@@ -31,10 +32,11 @@ public class CalculateMarginServlet extends HttpServlet {
 
             String productName = request.getParameter("product");
             ProductCategory categoryName = ProductCategory.valueOf(request.getParameter("category").toUpperCase());
-            double margin = Double.parseDouble(request.getParameter("margin"));
+            double value_calc = Double.parseDouble(request.getParameter("value_calc"));
             double wholesalePrice = Double.parseDouble(request.getParameter("wholesale_price"));
+            String calculation_type = request.getParameter("calculation_type");
 
-            Product product = new Product(productName, wholesalePrice, margin);
+            Product product = new Product(productName, wholesalePrice);
 
             var statesAndCategoriesMap = TaxDataParser.fromUrlIncludeCategories("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
             var statesAndTaxMap = new TreeMap<State, Double>();
@@ -48,9 +50,13 @@ public class CalculateMarginServlet extends HttpServlet {
                 }
                 statesAndTaxMap.put(k, tax);
             });
-
-            var margins = product.calculateMargins(statesAndTaxMap);
-
+            
+            Map<State, Double> margins = null;
+            if (calculation_type.equalsIgnoreCase("min_margin")) {
+                margins = product.calculateMarginsBasedOnMinMargin(statesAndTaxMap, value_calc);
+            } else {
+                margins = product.calculateMarginsBasedOnMaxPrice(statesAndTaxMap, value_calc);
+            }
             List<MarginTableEntry> entries = new ArrayList<>();
 
             margins.forEach((key, value) -> {

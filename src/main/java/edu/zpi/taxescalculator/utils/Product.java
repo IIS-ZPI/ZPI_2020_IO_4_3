@@ -9,30 +9,32 @@ import java.util.*;
 public class Product {
     private String productName;
     private double wholesalePrice;
-    private double minMargin;
-    private SortedMap<State, Double> margins;
+    private Map<State, Double> margins;
 
     /**
      * Create a new instance of Product with specified product name, stock price and minimal expected purchase margin
      * @param productName Name of product
      * @param wholesalePrice Product price in stock
-     * @param minMargin Minimal expected purchase margin
      */
-    public Product(String productName, double wholesalePrice, double minMargin) {
+    public Product(String productName, double wholesalePrice) {
         this.productName = productName;
         this.wholesalePrice = wholesalePrice;
-        this.minMargin = minMargin;
-        margins = new TreeMap<>();
+        margins = new HashMap<>();
     }
 
     /**
      * Generate map of the states and the corresponding margin
      * @param states Map of states and taxes to calculate margins
+     * @param minMargin Minimal expected purchase margin
      * @return Map of states and margins, where Key is the state and Value is the corresponding margin
      */
-    public SortedMap<State, Double> calculateMargins(Map<State, Double> states) {
+    public HashMap<State, Double> calculateMarginsBasedOnMinMargin(Map<State, Double> states, double minMargin) {
         double maxTax = states.values().stream().max(Double::compareTo).orElse(0.0);
         double maxPrice = (wholesalePrice + minMargin) * (1 + maxTax);
+        return calculateMarginsBasedOnMaxPrice(states, maxPrice);
+    }
+
+    public HashMap<State, Double> calculateMarginsBasedOnMaxPrice(Map<State, Double> states, double maxPrice) {
         states.forEach((state, tax) -> {
             double statePrice = maxPrice / (1 + tax);
             double stateMargin = statePrice - wholesalePrice;
@@ -57,15 +59,7 @@ public class Product {
         this.wholesalePrice = wholesalePrice;
     }
 
-    public SortedMap<State, Double> getMargins() {
-        return margins;
-    }
-
-    public double getMinMargin() {
-        return minMargin;
-    }
-
-    public void setMinMargin(double minMargin) {
-        this.minMargin = minMargin;
+    public HashMap<State, Double> getMargins() {
+        return new HashMap<>(margins);
     }
 }

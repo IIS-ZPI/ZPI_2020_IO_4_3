@@ -50,6 +50,14 @@
                                 <option value="clothing">Ciuchy</option>
                                 <option value="intangibles">Usługi</option>
                             </select>
+                            <div class="btn-group btn-group-toggle mb-2" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <input type="radio" name="calculation_type" autocomplete="off" checked value="min_margin"> Minimalna marża
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="calculation_type" autocomplete="off" value="max_price"> Maksymalna cena
+                                </label>
+                            </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-default btn-block w-100 btn-lg">Wybierz</button>
                             </div>
