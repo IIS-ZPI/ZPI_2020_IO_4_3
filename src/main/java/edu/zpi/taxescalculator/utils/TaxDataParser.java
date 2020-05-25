@@ -8,7 +8,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /*
@@ -85,14 +88,21 @@ public class TaxDataParser {
                 Attributes attributes = cell.attributes();
                 boolean included = false;
                 Double tax = null;
-
+                Integer taxedAbovePrice = null;
                 if (attributes.size() != 0) {
                     String backgroundValue = attributes.get("style").replace("background:", "").replace(";","");
                     //this is utterly fucking retarded
                     //style can also contain numbers colors, ugh
-                    if (backgroundValue.contains(TAX_EXEMPT_CELL_BACKGROUND_COLOR)
-                            || backgroundValue.contains(NO_STATEWIDE_TAX_CELL_BACKGROUND_COLOR)) {
+                    if (backgroundValue.contains(TAX_EXEMPT_CELL_BACKGROUND_COLOR)) {
                         included = false;
+                        if (!cell.html().isBlank()) {
+                            var sb = new StringBuilder(cell.html()).reverse();
+                            var numericCharacters = sb.toString().chars().takeWhile(Character::isDigit).mapToObj(c -> Character.toString((char)c)).collect(Collectors.joining());
+                            sb = new StringBuilder(numericCharacters).reverse();
+                            try {
+                                taxedAbovePrice = Integer.parseInt(sb.toString());
+                            } catch (NumberFormatException nfe) { }
+                        }
                     } else if (backgroundValue.contains(TAX_SUBJECT_CELL_BACKGROUND_COLOR)) {
                         included = true;
                         if (!cell.html().isBlank()) {
@@ -107,12 +117,17 @@ public class TaxDataParser {
                                 tax = Double.parseDouble(taxString);
                             }
                         }
+                    } else if (backgroundValue.contains(NO_STATEWIDE_TAX_CELL_BACKGROUND_COLOR)) {
+                        included = false;
                     }
                 }
 
                 ProductCategoryStateTaxData data = new ProductCategoryStateTaxData(categories[categoryIndex], baseTax, included);
                 if (tax != null) {
                     data.setTax(tax);
+                }
+                if (taxedAbovePrice != null) {
+                    data.setTaxedAbovePrice(taxedAbovePrice);
                 }
                 taxDataList.add(data);
             }
