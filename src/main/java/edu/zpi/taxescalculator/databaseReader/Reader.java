@@ -12,6 +12,15 @@ public class Reader {
         this.statement = statement;
     }
 
+    public void loadCommand(String command){
+        try {
+            statement.executeUpdate(command);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<String> getAllCategoryName(){
         ResultSet rs = null;
         ArrayList<String> arrayList = new ArrayList<>();
@@ -46,7 +55,7 @@ public class Reader {
         ResultSet rs = null;
         ArrayList<String> arrayList = new ArrayList<>();
         try {
-            String sql = "select CategoryName from zpi2020io43.categories JOIN zpi2020io43.products " +
+            String sql = "select CategoryName from categories JOIN products " +
                     "ON categories.IdCategory = products.IdCategory where products.ProductName = \"" + productName +"\"";
             rs = statement.executeQuery(sql);
             while(rs.next()) {
@@ -107,10 +116,10 @@ public class Reader {
         ResultSet rs = null;
         ArrayList<String> arrayList = new ArrayList<>();
         try {
-            String sql = "select TaxOnCategoryValue, zpi2020io43.taxexplanation.ExplanationName from zpi2020io43.taxesoncategories\n" +
-                    "JOIN zpi2020io43.categories ON categories.IdCategory = taxesoncategories.IdCategory\n" +
-                    "JOIN zpi2020io43.states ON states.IdState = taxesoncategories.IdState\n" +
-                    "JOIN zpi2020io43.taxexplanation ON taxexplanation.IdTaxExplanation = taxesoncategories.IdTaxExplanation\n" +
+            String sql = "select TaxOnCategoryValue, taxexplanation.ExplanationName from taxesoncategories\n" +
+                    "JOIN categories ON categories.IdCategory = taxesoncategories.IdCategory\n" +
+                    "JOIN states ON states.IdState = taxesoncategories.IdState\n" +
+                    "JOIN taxexplanation ON taxexplanation.IdTaxExplanation = taxesoncategories.IdTaxExplanation\n" +
                     "where states.StateName = \"" + state + "\" and categories.CategoryName = \"" + category + "\"";
             rs = statement.executeQuery(sql);
             while(rs.next()) {
