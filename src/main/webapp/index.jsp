@@ -22,23 +22,47 @@
 </head>
 
 
-<body>
+<body style="	background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));	background-position: top left;	background-size: 100%;	background-repeat: repeat;">
 <div id="nav-placeholder" class="fixed-top">
 
 </div>
 
-<div class="container-fluid mt-5 pt-5">
-    <div class="text-center mt-5 pt-5" style="">
-        <div class="container">
-            <div class="row shadow-lg border rounded border-default">
-                <div class="mx-auto p-4 col-md-7 h-50" >
-                    <h1 class="text-center mb-3" >Przeliczanie wartości towaru</h1>
 
-                    <form action="index" method="get">
-                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="margin">Wylicz marżę</button>
-                        <button type="submit" class="btn btn-default btn-block w-100 btn-lg" name="act" value="states">Pokaż podatki w konkretnych stanach</button>
-                    </form>
-                </div>
+<div class="py-5 text-white h-50" style="	background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .9)), url('/images/homePage.jpg');	background-position: center center, center center;	background-size: cover, cover;	background-repeat: repeat, repeat;" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="lead w-100 text-center mt-5 pb-5 pt-5">Sales taxes in the United States are taxes placed on the sale or lease of goods and services in the United States. Sales tax is governed at the state level and no national general sales tax exists.</p>
+                <p class="lead w-100 text-center">The definitions of retail sales and taxable items vary among the states. Nearly all jurisdictions provide numerous categories of goods and services that are exempt from sales tax, or taxed at reduced rates. The purchase of goods for further manufacture or for resale is uniformly exempt from sales tax. Most jurisdictions exempt food sold in grocery stores, prescription medications, and many agricultural supplies.</p>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+    </div>
+</div>
+<div class="py-5 text-center" style="	background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .9)), url('/images/teams.jpg');	background-position: top left;	background-size: 100%;	background-repeat: repeat;" >
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto col-md-12">
+                <h1 class="mb-3 text-white text-center">Meet&nbsp;the team</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/Maciej.jpg" width="100">
+                <h4> <b>Maciej</b></h4>
+                <p contenteditable="true">Developer<br>TeamLider</p>
+            </div>
+            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/Jacek.jpg" width="100">
+                <h4> <b>Jacek</b></h4>
+                <p>Developer</p>
+            </div>
+            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/Wojtek.jpg" width="100">
+                <h4> <b>Wojciech</b></h4>
+                <p>Developer</p>
+            </div>
+            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/Paulina.jpg" width="100">
+                <h4> <b>Paulina</b></h4>
+                <p>Tester</p>
             </div>
         </div>
     </div>
