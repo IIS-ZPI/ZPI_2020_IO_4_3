@@ -27,22 +27,22 @@
 
 </div>
 
-<div class="container-fluid mt-5 pt-5">
-    <div class="text-center mt-5 pt-5" style="">
-        <div class="container">
-            <div class="row shadow-lg border rounded border-default">
-                <div class="mx-auto p-4 col-md-7 h-50" >
-                    <h1 class="text-center mb-3">Przeliczanie wartości towaru</h1>
+<div class="text-center text-white mt-5 py-5" >
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto col-lg-6">
+                <h1 class="mt-5" > Choose your product</h1>
+                <p class="mb-4">Yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian sun strikes.</p>
                     <form action="select_product_price" method="get">
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <select class="custom-select mb-2 custom-select-lg" name="product" required>
-                                <option value="" disabled selected>Wybierz produkt</option>
+                                <option value="" disabled selected>Choose product</option>
                                 <option value="Milk">Milk</option>
                                 <option value="Eggs">Eggs</option>
                                 <option value="Sausage">Sausage</option>
                             </select>
                             <select class="custom-select mb-2 custom-select-lg" name="category" required>
-                                <option value="" disabled selected>Wybierz kategorię</option>
+                                <option value="" disabled selected>Choose category</option>
                                 <option value="grocery">Artykuły spożywcze</option>
                                 <option value="prepared_food">Gotowe jedzenie</option>
                                 <option value="prescription_drug">Leki na receptę</option>
@@ -51,24 +51,22 @@
                                 <option value="intangibles">Usługi</option>
                             </select>
                             <div class="btn-group btn-group-toggle mb-2" data-toggle="buttons">
-                                <label class="btn btn-default active">
-                                    <input type="radio" name="calculation_type" autocomplete="off" checked value="min_margin"> Minimalna marża
+                                <label class="btn btn-default active mb-2">
+                                    <input type="radio" name="calculation_type" autocomplete="off" checked value="min_margin"> Minimum margin
                                 </label>
-                                <label class="btn btn-default">
-                                    <input type="radio" name="calculation_type" autocomplete="off" value="expected_price"> Oczekiwana cena
+                                <label class="btn btn-default mb-2">
+                                    <input type="radio" name="calculation_type" autocomplete="off" value="expected_price"> Expected price
                                 </label>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-default btn-block w-100 btn-lg">Wybierz</button>
+                                <button type="submit" class="btn btn-default btn-block w-100 btn-lg mb-2">Apply</button>
                             </div>
                         </div>
                     </form>
-                </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
     $(function () {

@@ -27,22 +27,26 @@
 <div id="nav-placeholder" class="fixed-top">
 
 </div>
-
-<div class="mt-5 pt-5">
-    <div class="container shadow mb-2 border border-default rounded mt-5 pt-5">
+<div class="text-center text-white mt-5 py-5" >
+    <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h1 class="text-center">Twój produkt to:</h1>
-
+            <div class="mx-auto col-lg-6">
+                <h1 class="mt-5" > Chosen product</h1>
+                <p class="mb-4">${product}, ${category.mapToPolishName()}</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center"> ${product}, ${category.mapToPolishName()}</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6"><img class="img-fluid d-block rounded-circle mx-auto my-2 w-50" src="https://static.pingendo.com/img-placeholder-3.svg"></div>
+            <c:choose>
+                <c:when test="${product=='Milk'}">
+                    <div class="col-md-6"><img class="img-fluid d-block rounded-circle mx-auto my-2 w-50" src="/images/milk.jfif"></div>
+                </c:when>
+                <c:when test="${product=='Eggs'}">
+                    <div class="col-md-6"><img class="img-fluid d-block rounded-circle mx-auto my-2 w-50" src="/images/eggs.jpg"></div>
+                </c:when>
+                <c:when test="${product=='Sausage'}">
+                    <div class="col-md-6"><img class="img-fluid d-block rounded-circle mx-auto my-2 w-50" src="/images/sausage.jpg"></div>
+                </c:when>
+            </c:choose>
             <div class="col-md-6 mt-5">
                 <form action="margin_calculator" method="get">
                     <input type="hidden" name="product" value="${product}">
@@ -52,25 +56,26 @@
                         <div class="col-10 col-md-12" style="">
                             <c:choose>
                                 <c:when test="${calculation_type == 'min_margin'}">
-                                    <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="value_calc" required placeholder="Minimalna marża (np. 2.3)">
+                                    <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="value_calc" required placeholder="Minimum margin (ex. 2.3)">
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="value_calc" required placeholder="Oczekiwana cena (np. 20.4)">
+                                    <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg"  name="value_calc" required placeholder="Expected price (ex. 20.4)">
                                 </c:otherwise>
                             </c:choose>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-10 col-md-12" style="">
-                            <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg" name="wholesale_price" required placeholder="Cena hurtowa (np. 14.23)">
+                            <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg" name="wholesale_price" required placeholder="Whole price (ex. 14.23)">
                         </div>
                     </div>
-                    <button type="submit"  class="btn btn-default btn-block w-100 btn-lg">Przelicz</button>
+                    <button type="submit"  class="btn btn-default btn-block w-100 btn-lg">Calculate</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <script>

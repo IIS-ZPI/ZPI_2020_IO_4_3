@@ -28,11 +28,11 @@
 
 </div>
 
-<div class="container-fluid mt-5 pt-5">
+<div class="text-center text-white mt-5 py-5" >
     <div class="container">
-        <div class="row shadow-lg border rounded border-default mb-3">
-            <div class="mx-auto p-4 col-md-7 h-50" >
-                <h1 class="text-center">Tabele stanów</h1>
+        <div class="row">
+            <div class="mx-auto col-lg-6">
+                <h1 class="text-center">State table</h1>
             </div>
         </div>
     </div>

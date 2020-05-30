@@ -29,22 +29,37 @@
 
 </div>
 
-<div class="text-center mt-5 pt-5" style="">
+<div class="text-center text-white mt-5 py-5" >
     <div class="container">
         <div class="row">
-            <div class="col-md-12 shadow mb-2 border border-default rounded">
-                <h1 class="">Tabela marży dla towaru:</h1>
+            <div class="mx-auto col-lg-6">
+                <h1 class="">Margin table for goods</h1>
                 <h3>${product}, ${category.mapToPolishName()}</h3>
             </div>
         </div>
-        <div class="row shadow-lg border rounded border-default">
-            <div class="col-md-3" style="">
-                <img class="img-fluid d-block rounded my-2 mx-auto mt-4 w-75" src="https://static.pingendo.com/img-placeholder-1.svg">
+
+        <div class="py-5" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <c:choose>
+                            <c:when test="${product=='Milk'}">
+                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-25" src="/images/milk.jfif"></div>
+                            </c:when>
+                            <c:when test="${product=='Eggs'}">
+                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-25" src="/images/eggs.jpg"></div>
+                            </c:when>
+                            <c:when test="${product=='Sausage'}">
+                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-75" src="/images/sausage.jpg"></div>
+                            </c:when>
+                        </c:choose>
+                    </div>
+                </div>
             </div>
             <div class="mx-auto p-4 col-md-9 w-100" style="">
                 <div class="table-striped table-hover">
-                    <table class="table table-fixed table-bordered" id="scrollableTable">
-                        <thead class="default-color-dark white-text">
+                    <table class="table table-dark table-fixed table-bordered" id="scrollableTable" >
+                        <thead class="default-color-dark white-text" >
                         <tr>
                             <td>Stan</td>
                             <td>Cena hurtowa</td>

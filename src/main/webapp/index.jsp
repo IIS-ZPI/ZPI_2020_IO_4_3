@@ -28,15 +28,12 @@
 </div>
 
 
-<div class="py-5 text-white h-50" style="	background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .9)), url('/images/homePage.jpg');	background-position: center center, center center;	background-size: cover, cover;	background-repeat: repeat, repeat;" >
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p class="lead w-100 text-center mt-5 pb-5 pt-5">Sales taxes in the United States are taxes placed on the sale or lease of goods and services in the United States. Sales tax is governed at the state level and no national general sales tax exists.</p>
-                <p class="lead w-100 text-center">The definitions of retail sales and taxable items vary among the states. Nearly all jurisdictions provide numerous categories of goods and services that are exempt from sales tax, or taxed at reduced rates. The purchase of goods for further manufacture or for resale is uniformly exempt from sales tax. Most jurisdictions exempt food sold in grocery stores, prescription medications, and many agricultural supplies.</p>
+<div class="py-5 text-center align-items-center d-flex" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .9)), url('/images/homePage.jpg'); background-size: 100%;" >
+    <div class="container py-5">
+        <div class="row text-white" >
+            <div class="col-md-8 mx-auto">
+                <p class="lead mb-2">Sales taxes in the United States are taxes placed on the sale or lease of goods and services in the United States. Sales tax is governed at the state level and no national general sales tax exists.<br><br>The definitions of retail sales and taxable items vary among the states. Nearly all jurisdictions provide numerous categories of goods and services that are exempt from sales tax, or taxed at reduced rates. The purchase of goods for further manufacture or for resale is uniformly exempt from sales tax. Most jurisdictions exempt food sold in grocery stores, prescription medications, and many agricultural supplies.</p>
             </div>
-        </div>
-        <div class="row">
         </div>
     </div>
 </div>
@@ -44,13 +41,13 @@
     <div class="container">
         <div class="row">
             <div class="mx-auto col-md-12">
-                <h1 class="mb-3 text-white text-center">Meet&nbsp;the team</h1>
+                <h1 class="mb-3 text-white text-center">Meet the team</h1>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/Maciej.jpg" width="100">
                 <h4> <b>Maciej</b></h4>
-                <p contenteditable="true">Developer<br>TeamLider</p>
+                <p>Developer<br>TeamLider</p>
             </div>
             <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/Jacek.jpg" width="100">
                 <h4> <b>Jacek</b></h4>
