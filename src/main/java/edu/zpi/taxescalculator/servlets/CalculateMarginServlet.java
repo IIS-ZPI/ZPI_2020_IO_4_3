@@ -21,7 +21,8 @@ public class CalculateMarginServlet extends HttpServlet {
         if (request.getParameter("product") == null ||
                 request.getParameter("value_calc") == null
                 || request.getParameter("wholesale_price") == null 
-                || request.getParameter("calculation_type") == null)
+                || request.getParameter("calculation_type") == null
+                || request.getParameter("quantity") == null)
         {
             response.sendRedirect("select_product_price");
         }
@@ -31,6 +32,10 @@ public class CalculateMarginServlet extends HttpServlet {
             nf.setMinimumFractionDigits(2);
 
             String productName = request.getParameter("product");
+            String calculationType = request.getParameter("calculation_type");
+            double calculationValue = Double.parseDouble(request.getParameter("value_calc"));
+            double wholesalePrice = Double.parseDouble(request.getParameter("wholesale_price"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
             ProductCategory categoryName = null;
             try {
                 categoryName = ProductCategory.valueOf(request.getParameter("category").toUpperCase());
@@ -38,15 +43,13 @@ public class CalculateMarginServlet extends HttpServlet {
                 response.sendRedirect("select_product_price");
                 return;
             }
-            double value_calc = Double.parseDouble(request.getParameter("value_calc"));
-            double wholesalePrice = Double.parseDouble(request.getParameter("wholesale_price"));
-            if (value_calc < 0 || wholesalePrice < 0) {
+            
+            if (calculationValue < 0 || wholesalePrice < 0) {
                 response.sendRedirect("select_product_price");
                 return;
             }
-            String calculation_type = request.getParameter("calculation_type");
 
-            Product product = new Product(productName, wholesalePrice);
+            Product product = new Product(productName, wholesalePrice, quantity);
 
             var statesAndCategoriesMap = TaxDataParser.fromUrlIncludeCategories("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
             var statesAndTaxMap = new TreeMap<State, Double>();
@@ -62,30 +65,16 @@ public class CalculateMarginServlet extends HttpServlet {
                 statesAndTaxMap.put(k, tax);
             });
             
-            Map<State, Double> margins = null;
-            if (calculation_type.equalsIgnoreCase("min_margin")) {
-                margins = product.calculateMarginsBasedOnMinMargin(statesAndTaxMap, value_calc);
-            } else if (calculation_type.equalsIgnoreCase("expected_price")) {
-                margins = product.calculateMarginsBasedOnMaxPrice(statesAndTaxMap, value_calc);
-            } else {
+            var entries = MarginTableEntry.createEntriesList(product, statesAndTaxMap, calculationValue, calculationType);
+            if (entries == null) {
                 response.sendRedirect("select_product_price");
                 return;
             }
-            List<MarginTableEntry> entries = new ArrayList<>();
-            
-            margins.forEach((key, value) -> {
-                entries.add(new MarginTableEntry(key.getStateName(),
-                        nf.format(product.getWholesalePrice()),
-                        nf.format(value),
-                        nf.format((wholesalePrice + value) * (1 + statesAndTaxMap.get(key))),
-                        nf.format(key.getBaseTax()),
-                        nf.format(wholesalePrice + value),
-                        nf.format(statesAndTaxMap.get(key) * 100)));
-            });
 
             request.setAttribute("entries", entries);
             request.setAttribute("product", productName);
             request.setAttribute("category", categoryName);
+            request.setAttribute("quantity", quantity);
             request.getRequestDispatcher("/margin.jsp").forward(request, response);
         
         }

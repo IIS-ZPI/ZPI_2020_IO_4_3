@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
 
-    private Product product = new Product("Milk", 124.00);
+    private Product product = new Product("Milk", 124.00, 1);
     private Map<State, Double> margins;
 
     @Test
@@ -28,7 +28,7 @@ class ProductTest {
 
     @Test
     void getWholesalePrice() {
-        assertEquals(124.00, product.getWholesalePrice());
+        assertEquals(124.00, product.getUnitWholesalePrice());
     }
 
     @Test

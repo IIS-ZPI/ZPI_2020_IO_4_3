@@ -43,12 +43,12 @@
                             </select>
                             <select class="custom-select mb-2 custom-select-lg" name="category" required>
                                 <option value="" disabled selected>Choose category</option>
-                                <option value="grocery">Artykuły spożywcze</option>
-                                <option value="prepared_food">Gotowe jedzenie</option>
-                                <option value="prescription_drug">Leki na receptę</option>
-                                <option value="non_prescription_drug">Leki bez recepty</option>
-                                <option value="clothing">Ciuchy</option>
-                                <option value="intangibles">Usługi</option>
+                                <option value="grocery">Groceries</option>
+                                <option value="prepared_food">Prepared food</option>
+                                <option value="prescription_drug">Prescription drugs</option>
+                                <option value="non_prescription_drug">Non prescription drugs</option>
+                                <option value="clothing">Clothing</option>
+                                <option value="intangibles">Intangibles</option>
                             </select>
                             <div class="btn-group btn-group-toggle mb-2" data-toggle="buttons">
                                 <label class="btn btn-default active mb-2">

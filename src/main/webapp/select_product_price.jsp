@@ -32,7 +32,7 @@
         <div class="row">
             <div class="mx-auto col-lg-6">
                 <h1 class="mt-5" > Chosen product</h1>
-                <p class="mb-4">${product}, ${category.mapToPolishName()}</p>
+                <p class="mb-4">${product}, ${category.mapToEnglishName()}</p>
             </div>
         </div>
         <div class="row">
@@ -67,6 +67,11 @@
                     <div class="form-group row">
                         <div class="col-10 col-md-12" style="">
                             <input type="text" pattern="\d+(\.\d{1,2})?" class="form-control mb-2 form-control-lg" name="wholesale_price" required placeholder="Whole price (ex. 14.23)">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-10 col-md-12" style="">
+                            <input type="text" pattern="\d+?" class="form-control mb-2 form-control-lg" name="quantity" required placeholder="Quantity (ex. 3)">
                         </div>
                     </div>
                     <button type="submit"  class="btn btn-default btn-block w-100 btn-lg">Calculate</button>
