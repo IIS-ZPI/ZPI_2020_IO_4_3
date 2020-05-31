@@ -1,4 +1,4 @@
-package test;
+package edu.zpi.taxescalculator.utils;
 
 import edu.zpi.taxescalculator.utils.State;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package test;
+package edu.zpi.taxescalculator.utils;
 
 import edu.zpi.taxescalculator.utils.MarginTableEntry;
 import org.junit.jupiter.api.Test;

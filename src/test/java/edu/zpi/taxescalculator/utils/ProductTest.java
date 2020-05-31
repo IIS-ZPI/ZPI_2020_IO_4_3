@@ -1,4 +1,4 @@
-package test;
+package edu.zpi.taxescalculator.utils;
 
 import edu.zpi.taxescalculator.utils.Product;
 import edu.zpi.taxescalculator.utils.State;
