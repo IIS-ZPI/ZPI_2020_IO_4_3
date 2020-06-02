@@ -1,5 +1,6 @@
 package edu.zpi.taxescalculator.utils;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -7,20 +8,23 @@ import java.util.*;
  */
 
 public class Product {
-    private String productName;
-    private double unitWholesalePrice;
+    private final String productName;
+    private final double unitWholesalePrice;
+    private final int quantity;
+    private final ProductCategory category;
     private Map<State, Double> unitMargins;
-    private int quantity;
 
     /**
      * Create a new instance of Product with specified product name, stock price and minimal expected purchase margin
      *
-     * @param productName    Name of product
+     * @param productName        Name of product
      * @param unitWholesalePrice Product price in stock
+     * @param category           Product's category
      */
-    public Product(String productName, double unitWholesalePrice, int quantity) {
+    public Product(String productName, double unitWholesalePrice, int quantity, ProductCategory category) {
         this.productName = productName;
         this.unitWholesalePrice = unitWholesalePrice;
+        this.category = category;
         unitMargins = new HashMap<>();
         this.quantity = quantity;
     }
@@ -28,16 +32,16 @@ public class Product {
     /**
      * Generate map of the states and the corresponding margin
      *
-     * @param states            Map of states and taxes to calculate margins
-     * @param value             Value corresponding to chosen calculation type
-     * @param calculationType   Type of calculation (min margin or expected price)
+     * @param value           Value corresponding to chosen calculation type
+     * @param calculationType Type of calculation (min margin or expected price)
      * @return Map of states and margins, where Key is the state and Value is the corresponding margin
      */
-    public HashMap<State, Double> calculateMargins(Map<State, Double> states, double value, String calculationType) {
+    public HashMap<State, Double> calculateMargins(double value, String calculationType) throws IOException {
+        var statesAndTaxesMap = createStatesAndTaxesMap();
         if (calculationType.equalsIgnoreCase("min_margin"))
-            return calculateMarginsBasedOnMinMargin(states, value);
+            return calculateMarginsBasedOnMinMargin(statesAndTaxesMap, value);
         else if (calculationType.equalsIgnoreCase("expected_price"))
-            return calculateMarginsBasedOnExpectedPrice(states, value);
+            return calculateMarginsBasedOnExpectedPrice(statesAndTaxesMap, value);
         else
             return null;
     }
@@ -46,16 +50,8 @@ public class Product {
         return productName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
     public double getUnitWholesalePrice() {
         return unitWholesalePrice;
-    }
-
-    public void setUnitWholesalePrice(double unitWholesalePrice) {
-        this.unitWholesalePrice = unitWholesalePrice;
     }
 
     public HashMap<State, Double> getUnitMargins() {
@@ -66,8 +62,24 @@ public class Product {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public ProductCategory getCategory() {
+        return category;
+    }
+    
+    public TreeMap<State, Double> createStatesAndTaxesMap() throws IOException {
+        var statesAndCategoriesMap = TaxDataParser.fromUrlIncludeCategories("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
+        var statesAndTaxesMap = new TreeMap<State, Double>();
+        statesAndCategoriesMap.forEach((k, v) -> {
+            var optionalCategoryTax = v.stream()
+                    .filter(el -> el.getProductCategory().equals(category))
+                    .findFirst();
+            double tax = 0.0;
+            if (optionalCategoryTax.isPresent()) {
+                tax = optionalCategoryTax.get().getTax() / 100.0;
+            }
+            statesAndTaxesMap.put(k, tax);
+        });
+        return statesAndTaxesMap;
     }
 
     /**

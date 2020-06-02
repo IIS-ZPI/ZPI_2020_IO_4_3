@@ -1,5 +1,6 @@
 package edu.zpi.taxescalculator.utils;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,28 +41,28 @@ public class MarginTableEntry {
         this.finalTax = finalTax;
     }
 
-    public static List<MarginTableEntry> createEntriesList(Product product, Map<State, Double> statesAndTaxMap, double calculationValue, String calculationType) {
+    public static List<MarginTableEntry> createEntriesList(Product product, double calculationValue, String calculationType) throws IOException {
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
         nf.setMaximumFractionDigits(2);
         nf.setMinimumFractionDigits(2);
 
-        var margins = product.calculateMargins(statesAndTaxMap, calculationValue, calculationType);
+        var margins = product.calculateMargins(calculationValue, calculationType);
         if (margins == null)
             return null;
         
         var quantity = product.getQuantity();
         
         List<MarginTableEntry> entries = new ArrayList<>();
-        
+        final var statesAndTaxesMap = product.createStatesAndTaxesMap();
         margins.forEach((key, value) -> {
             entries.add(new MarginTableEntry(
                     key.getStateName(),
                     nf.format(product.getUnitWholesalePrice() * quantity),
                     nf.format(value * quantity),
-                    nf.format((product.getUnitWholesalePrice() + value) * (1 + statesAndTaxMap.get(key)) * quantity),
+                    nf.format((product.getUnitWholesalePrice() + value) * (1 + statesAndTaxesMap.get(key)) * quantity),
                     nf.format(key.getBaseTax()),
                     nf.format((product.getUnitWholesalePrice() + value) * quantity),
-                    nf.format(statesAndTaxMap.get(key) * 100)
+                    nf.format(statesAndTaxesMap.get(key) * 100)
             ));
         });
 

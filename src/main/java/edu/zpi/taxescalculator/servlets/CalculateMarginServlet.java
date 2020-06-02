@@ -36,9 +36,9 @@ public class CalculateMarginServlet extends HttpServlet {
             double calculationValue = Double.parseDouble(request.getParameter("value_calc"));
             double wholesalePrice = Double.parseDouble(request.getParameter("wholesale_price"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
-            ProductCategory categoryName = null;
+            ProductCategory category = null;
             try {
-                categoryName = ProductCategory.valueOf(request.getParameter("category").toUpperCase());
+                category = ProductCategory.valueOf(request.getParameter("category").toUpperCase());
             } catch (IllegalArgumentException e) {
                 response.sendRedirect("select_product_price");
                 return;
@@ -49,23 +49,9 @@ public class CalculateMarginServlet extends HttpServlet {
                 return;
             }
 
-            Product product = new Product(productName, wholesalePrice, quantity);
-
-            var statesAndCategoriesMap = TaxDataParser.fromUrlIncludeCategories("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
-            var statesAndTaxMap = new TreeMap<State, Double>();
-            ProductCategory finalCategoryName = categoryName;
-            statesAndCategoriesMap.forEach((k, v) -> {
-                var optionalCategoryTax = v.stream()
-                        .filter(el -> el.getProductCategory().equals(finalCategoryName))
-                        .findFirst();
-                double tax = 0.0;
-                if (optionalCategoryTax.isPresent()) {
-                    tax = optionalCategoryTax.get().getTax() / 100.0;
-                }
-                statesAndTaxMap.put(k, tax);
-            });
+            Product product = new Product(productName, wholesalePrice, quantity, category);
             
-            var entries = MarginTableEntry.createEntriesList(product, statesAndTaxMap, calculationValue, calculationType);
+            var entries = MarginTableEntry.createEntriesList(product, calculationValue, calculationType);
             if (entries == null) {
                 response.sendRedirect("select_product_price");
                 return;
@@ -73,7 +59,7 @@ public class CalculateMarginServlet extends HttpServlet {
 
             request.setAttribute("entries", entries);
             request.setAttribute("product", productName);
-            request.setAttribute("category", categoryName);
+            request.setAttribute("category", category);
             request.setAttribute("quantity", quantity);
             request.getRequestDispatcher("/margin.jsp").forward(request, response);
         
