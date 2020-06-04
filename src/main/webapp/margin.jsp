@@ -34,7 +34,7 @@
         <div class="row">
             <div class="mx-auto col-lg-6">
                 <h1 class="">Margin table for goods</h1>
-                <h3>${product}, ${category.mapToPolishName()}</h3>
+                <h3>${product}, ${category.mapToEnglishName()}, ${quantity} pcs</h3>
             </div>
         </div>
 
@@ -61,13 +61,13 @@
                     <table class="table table-dark table-fixed table-bordered" id="scrollableTable" >
                         <thead class="default-color-dark white-text" >
                         <tr>
-                            <td>Stan</td>
-                            <td>Cena hurtowa</td>
-                            <td>Marża</td>
-                            <td>Cena bez podatku</td>
-                            <td>Podatek podstawowy (%)</td>
-                            <td>Podatek całkowity (%)</td>
-                            <td>Cena z podatkiem</td>
+                            <td>State</td>
+                            <td>Wholesale price</td>
+                            <td>Margin</td>
+                            <td>Price without tax</td>
+                            <td>Base tax (%)</td>
+                            <td>Final tax (%)</td>
+                            <td>Final price</td>
                         </tr>
                         </thead>
                         <tbody class="default-color white-text">

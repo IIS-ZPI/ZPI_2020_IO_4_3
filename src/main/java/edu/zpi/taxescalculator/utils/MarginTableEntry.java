@@ -1,5 +1,12 @@
 package edu.zpi.taxescalculator.utils;
 
+import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 /**
  * CLass represents a single entry for margins table
  */
@@ -15,13 +22,14 @@ public class MarginTableEntry {
 
     /**
      * Create a new instance of MarginTableEntry
-     * @param stateName Name of the state
-     * @param wholesalePrice Price in stock
-     * @param margin Purchase margin
-     * @param price Final price
-     * @param baseTax Basic tax
+     *
+     * @param stateName       Name of the state
+     * @param wholesalePrice  Price in stock
+     * @param margin          Purchase margin
+     * @param price           Final price
+     * @param baseTax         Basic tax
      * @param priceWithoutTax Product price without tax
-     * @param finalTax Final tax, which contains base tax and category tax
+     * @param finalTax        Final tax, which contains base tax and category tax
      */
     public MarginTableEntry(String stateName, String wholesalePrice, String margin, String price, String baseTax, String priceWithoutTax, String finalTax) {
         this.stateName = stateName;
@@ -31,6 +39,34 @@ public class MarginTableEntry {
         this.baseTax = baseTax;
         this.priceWithoutTax = priceWithoutTax;
         this.finalTax = finalTax;
+    }
+
+    public static List<MarginTableEntry> createEntriesList(Product product, double calculationValue, String calculationType) throws IOException {
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+        nf.setMaximumFractionDigits(2);
+        nf.setMinimumFractionDigits(2);
+
+        var margins = product.calculateMargins(calculationValue, calculationType);
+        if (margins == null)
+            return null;
+        
+        var quantity = product.getQuantity();
+        
+        List<MarginTableEntry> entries = new ArrayList<>();
+        final var statesAndTaxesMap = product.createStatesAndTaxesMap();
+        margins.forEach((key, value) -> {
+            entries.add(new MarginTableEntry(
+                    key.getStateName(),
+                    nf.format(product.getUnitWholesalePrice() * quantity),
+                    nf.format(value * quantity),
+                    nf.format((product.getUnitWholesalePrice() + value) * (1 + statesAndTaxesMap.get(key)) * quantity),
+                    nf.format(key.getBaseTax()),
+                    nf.format((product.getUnitWholesalePrice() + value) * quantity),
+                    nf.format(statesAndTaxesMap.get(key) * 100)
+            ));
+        });
+
+        return entries;
     }
 
     public String getStateName() {

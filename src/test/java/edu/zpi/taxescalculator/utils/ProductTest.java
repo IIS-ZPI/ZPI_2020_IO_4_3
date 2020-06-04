@@ -1,7 +1,5 @@
-package test;
+package edu.zpi.taxescalculator.utils;
 
-import edu.zpi.taxescalculator.utils.Product;
-import edu.zpi.taxescalculator.utils.State;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -10,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
 
-    private Product product = new Product("Milk", 124.00);
+    private Product product = new Product("Milk", 124.00, 1, ProductCategory.GROCERY);
     private Map<State, Double> margins;
 
     @Test
@@ -28,7 +26,7 @@ class ProductTest {
 
     @Test
     void getWholesalePrice() {
-        assertEquals(124.00, product.getWholesalePrice());
+        assertEquals(124.00, product.getUnitWholesalePrice());
     }
 
     @Test

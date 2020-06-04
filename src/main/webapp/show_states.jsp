@@ -41,14 +41,14 @@
         <table class="table table-bordered table-striped table-hover" id="scrollableTable">
             <thead class="default-color-dark white-text">
             <tr>
-                <td>Stan</td>
-                <td>Podatek (%)</td>
-                <td>Podatek od artykułów spożywczych (%)</td>
-                <td>Podatek od gotowego jedzenia (%)</td>
-                <td>Podatek od leków na receptę (%)</td>
-                <td>Podatek od leków bez recepty (%)</td>
-                <td>Podatek od ciuchów (%)</td>
-                <td>Podatek od usług (%)</td>
+                <td>State</td>
+                <td>Base tax (%)</td>
+                <td>Groceries tax (%)</td>
+                <td>Prepared food tax (%)</td>
+                <td>Prescription drugs tax (%)</td>
+                <td>Non prescription drugs tax (%)</td>
+                <td>Clothing tax (%)</td>
+                <td>Intangibles tax (%)</td>
             </tr>
             </thead>
             <tbody class="default-color white-text">
