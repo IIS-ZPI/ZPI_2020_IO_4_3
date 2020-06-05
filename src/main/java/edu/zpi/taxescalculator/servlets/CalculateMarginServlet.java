@@ -60,7 +60,6 @@ public class CalculateMarginServlet extends HttpServlet {
             request.setAttribute("entries", entries);
             request.setAttribute("product", productName);
             request.setAttribute("category", category);
-            request.setAttribute("quantity", quantity);
             request.getRequestDispatcher("/margin.jsp").forward(request, response);
 
         }

@@ -34,7 +34,7 @@
         <div class="row">
             <div class="mx-auto col-lg-6">
                 <h1 class="">Margin table for goods</h1>
-                <h3>${product}, ${category.mapToEnglishName()}, ${quantity} pcs</h3>
+                <h3>${product}, ${category.mapToEnglishName()}</h3>
             </div>
         </div>
 
