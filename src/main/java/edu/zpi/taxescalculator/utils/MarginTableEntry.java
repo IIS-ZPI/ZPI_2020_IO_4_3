@@ -5,7 +5,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * CLass represents a single entry for margins table
@@ -14,31 +13,37 @@ import java.util.Map;
 public class MarginTableEntry {
     private String stateName;
     private String wholesalePrice;
+    private String quantity;
+    private String wholesaleValue;
     private String margin;
-    private String price;
+    private String valueIncludingTax;
     private String baseTax;
-    private String priceWithoutTax;
-    private String finalTax;
+    private String valueExcludingTax;
+    private String taxValue;
+    private String tax;
+
+    private MarginTableEntry() {
+    }
 
     /**
      * Create a new instance of MarginTableEntry
      *
-     * @param stateName       Name of the state
-     * @param wholesalePrice  Price in stock
-     * @param margin          Purchase margin
-     * @param price           Final price
-     * @param baseTax         Basic tax
-     * @param priceWithoutTax Product price without tax
-     * @param finalTax        Final tax, which contains base tax and category tax
+     * @param stateName         Name of the state
+     * @param wholesaleValue    Value in stock
+     * @param margin            Purchase margin
+     * @param valueIncludingTax Final price
+     * @param baseTax           Basic tax
+     * @param valueExcludingTax Product price without tax
+     * @param tax               Final tax, which contains base tax and category tax
      */
-    public MarginTableEntry(String stateName, String wholesalePrice, String margin, String price, String baseTax, String priceWithoutTax, String finalTax) {
+    public MarginTableEntry(String stateName, String wholesaleValue, String margin, String valueExcludingTax, String baseTax, String tax, String valueIncludingTax) {
         this.stateName = stateName;
-        this.wholesalePrice = wholesalePrice;
+        this.wholesaleValue = wholesaleValue;
         this.margin = margin;
-        this.price = price;
+        this.valueIncludingTax = valueIncludingTax;
         this.baseTax = baseTax;
-        this.priceWithoutTax = priceWithoutTax;
-        this.finalTax = finalTax;
+        this.valueExcludingTax = valueExcludingTax;
+        this.tax = tax;
     }
 
     public static List<MarginTableEntry> createEntriesList(Product product, double calculationValue, String calculationType) throws IOException {
@@ -47,23 +52,35 @@ public class MarginTableEntry {
         nf.setMinimumFractionDigits(2);
 
         var margins = product.calculateMargins(calculationValue, calculationType);
+        var exemptions = product.createStatesAndTaxExemptionsMap();
         if (margins == null)
             return null;
-        
+
         var quantity = product.getQuantity();
-        
+
         List<MarginTableEntry> entries = new ArrayList<>();
         final var statesAndTaxesMap = product.createStatesAndTaxesMap();
-        margins.forEach((key, value) -> {
-            entries.add(new MarginTableEntry(
-                    key.getStateName(),
-                    nf.format(product.getUnitWholesalePrice() * quantity),
-                    nf.format(value * quantity),
-                    nf.format((product.getUnitWholesalePrice() + value) * (1 + statesAndTaxesMap.get(key)) * quantity),
-                    nf.format(key.getBaseTax()),
-                    nf.format((product.getUnitWholesalePrice() + value) * quantity),
-                    nf.format(statesAndTaxesMap.get(key) * 100)
-            ));
+        margins.forEach((state, margin) -> {
+            var wholesaleValue = product.getWholesalePrice() * quantity;
+            var valueExcludingTax = product.getWholesalePrice() * quantity + margin;
+            var finalTax = exemptions.get(state) != null && valueExcludingTax > exemptions.get(state) ? state.getBaseTax() / 100 : statesAndTaxesMap.get(state) / 100;
+            var valueIncludingTax = valueExcludingTax * (1 + finalTax);
+
+            var tableEntry = new MarginTableEntry();
+
+            tableEntry.setStateName(state.getStateName());
+            tableEntry.setQuantity(nf.format(quantity));
+            tableEntry.setWholesalePrice(nf.format(product.getWholesalePrice()));
+            tableEntry.setWholesaleValue(nf.format(wholesaleValue));
+            tableEntry.setMargin(nf.format(margin));
+            tableEntry.setValueExcludingTax(nf.format(valueExcludingTax));
+            tableEntry.setBaseTax(nf.format(state.getBaseTax()));
+            tableEntry.setTax(nf.format(finalTax * 100));
+            tableEntry.setTaxValue(nf.format(valueExcludingTax * finalTax));
+            tableEntry.setValueIncludingTax(nf.format(valueIncludingTax));
+
+            entries.add(tableEntry);
+
         });
 
         return entries;
@@ -77,12 +94,12 @@ public class MarginTableEntry {
         this.stateName = stateName;
     }
 
-    public String getWholesalePrice() {
-        return wholesalePrice;
+    public String getWholesaleValue() {
+        return wholesaleValue;
     }
 
-    public void setWholesalePrice(String wholesalePrice) {
-        this.wholesalePrice = wholesalePrice;
+    public void setWholesaleValue(String wholesaleValue) {
+        this.wholesaleValue = wholesaleValue;
     }
 
     public String getMargin() {
@@ -93,12 +110,12 @@ public class MarginTableEntry {
         this.margin = margin;
     }
 
-    public String getPrice() {
-        return price;
+    public String getValueIncludingTax() {
+        return valueIncludingTax;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setValueIncludingTax(String valueIncludingTax) {
+        this.valueIncludingTax = valueIncludingTax;
     }
 
     public String getBaseTax() {
@@ -109,19 +126,43 @@ public class MarginTableEntry {
         this.baseTax = baseTax;
     }
 
-    public String getPriceWithoutTax() {
-        return priceWithoutTax;
+    public String getValueExcludingTax() {
+        return valueExcludingTax;
     }
 
-    public void setPriceWithoutTax(String priceWithoutTax) {
-        this.priceWithoutTax = priceWithoutTax;
+    public void setValueExcludingTax(String valueExcludingTax) {
+        this.valueExcludingTax = valueExcludingTax;
     }
 
-    public String getFinalTax() {
-        return finalTax;
+    public String getTax() {
+        return tax;
     }
 
-    public void setFinalTax(String finalTax) {
-        this.finalTax = finalTax;
+    public void setTax(String tax) {
+        this.tax = tax;
+    }
+
+    public String getWholesalePrice() {
+        return wholesalePrice;
+    }
+
+    public void setWholesalePrice(String wholesalePrice) {
+        this.wholesalePrice = wholesalePrice;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getTaxValue() {
+        return taxValue;
+    }
+
+    public void setTaxValue(String taxValue) {
+        this.taxValue = taxValue;
     }
 }

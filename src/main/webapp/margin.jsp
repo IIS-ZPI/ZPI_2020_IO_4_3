@@ -56,18 +56,20 @@
                     </div>
                 </div>
             </div>
-            <div class="mx-auto p-4 col-md-9 w-100" style="">
+            <div class="mx-auto p-4 col-md-10 w-100" style="">
                 <div class="table-striped table-hover">
                     <table class="table table-dark table-fixed table-bordered" id="scrollableTable" >
                         <thead class="default-color-dark white-text" >
                         <tr>
                             <td>State</td>
                             <td>Wholesale price</td>
+                            <td>Quantity</td>
+                            <td>Wholesale value</td>
                             <td>Margin</td>
-                            <td>Price without tax</td>
-                            <td>Base tax (%)</td>
-                            <td>Final tax (%)</td>
-                            <td>Final price</td>
+                            <td>Value excluding tax</td>
+                            <td>Tax value</td>
+                            <td>Tax (%)</td>
+                            <td>Value including tax</td>
                         </tr>
                         </thead>
                         <tbody class="default-color white-text">
@@ -82,11 +84,13 @@
                                 </c:choose>
                                     <td>${entry.stateName}</td>
                                     <td>${entry.wholesalePrice}</td>
+                                    <td>${entry.quantity}</td>
+                                    <td>${entry.wholesaleValue}</td>
                                     <td>${entry.margin}</td>
-                                    <td>${entry.priceWithoutTax}</td>
-                                    <td>${entry.baseTax}</td>
-                                    <td>${entry.finalTax}</td>
-                                    <td>${entry.price}</td>
+                                    <td>${entry.valueExcludingTax}</td>
+                                    <td>${entry.taxValue}</td>
+                                    <td>${entry.tax}</td>
+                                    <td>${entry.valueIncludingTax}</td>
                                 </tr>
                             </c:forEach>
                         </tbody>

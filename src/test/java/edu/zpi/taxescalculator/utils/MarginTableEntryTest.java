@@ -1,6 +1,5 @@
 package edu.zpi.taxescalculator.utils;
 
-import edu.zpi.taxescalculator.utils.MarginTableEntry;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +15,7 @@ class MarginTableEntryTest {
 
     @Test
     void getWholesalePrice() {
-        assertEquals("124", marginTableEntry.getWholesalePrice());
+        assertEquals("124", marginTableEntry.getWholesaleValue());
     }
 
     @Test
@@ -26,7 +25,7 @@ class MarginTableEntryTest {
 
     @Test
     void getPrice() {
-        assertEquals("173.88", marginTableEntry.getPrice());
+        assertEquals("173.88", marginTableEntry.getValueIncludingTax());
     }
 
     @Test
@@ -36,11 +35,11 @@ class MarginTableEntryTest {
 
     @Test
     void getPriceWithoutTax() {
-        assertEquals("4.00", marginTableEntry.getPriceWithoutTax());
+        assertEquals("4.00", marginTableEntry.getValueExcludingTax());
     }
 
     @Test
     void getFinalTax() {
-        assertEquals("180.83", marginTableEntry.getFinalTax());
+        assertEquals("180.83", marginTableEntry.getTax());
     }
 }

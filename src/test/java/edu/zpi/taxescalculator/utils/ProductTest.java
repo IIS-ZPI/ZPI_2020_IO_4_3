@@ -26,7 +26,7 @@ class ProductTest {
 
     @Test
     void getWholesalePrice() {
-        assertEquals(124.00, product.getUnitWholesalePrice());
+        assertEquals(124.00, product.getWholesalePrice());
     }
 
     @Test
