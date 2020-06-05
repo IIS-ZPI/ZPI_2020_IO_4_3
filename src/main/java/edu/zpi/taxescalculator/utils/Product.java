@@ -1,7 +1,9 @@
 package edu.zpi.taxescalculator.utils;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Class that stores basic information about single product
@@ -9,7 +11,7 @@ import java.util.*;
 
 public class Product {
     private final String productName;
-    private final double unitWholesalePrice;
+    private final double wholesalePrice;
     private final int quantity;
     private final ProductCategory category;
     private Map<State, Double> unitMargins;
@@ -17,13 +19,13 @@ public class Product {
     /**
      * Create a new instance of Product with specified product name, stock price and minimal expected purchase margin
      *
-     * @param productName        Name of product
-     * @param unitWholesalePrice Product price in stock
-     * @param category           Product's category
+     * @param productName    Name of product
+     * @param wholesalePrice Product price in stock
+     * @param category       Product's category
      */
-    public Product(String productName, double unitWholesalePrice, int quantity, ProductCategory category) {
+    public Product(String productName, double wholesalePrice, int quantity, ProductCategory category) {
         this.productName = productName;
-        this.unitWholesalePrice = unitWholesalePrice;
+        this.wholesalePrice = wholesalePrice;
         this.category = category;
         unitMargins = new HashMap<>();
         this.quantity = quantity;
@@ -38,10 +40,11 @@ public class Product {
      */
     public HashMap<State, Double> calculateMargins(double value, String calculationType) throws IOException {
         var statesAndTaxesMap = createStatesAndTaxesMap();
+        var exemptions = createStatesAndTaxExemptionsMap();
         if (calculationType.equalsIgnoreCase("min_margin"))
-            return calculateMarginsBasedOnMinMargin(statesAndTaxesMap, value);
+            return calculateMarginsBasedOnMinMargin(statesAndTaxesMap, exemptions, value);
         else if (calculationType.equalsIgnoreCase("expected_price"))
-            return calculateMarginsBasedOnExpectedPrice(statesAndTaxesMap, value);
+            return calculateMarginsBasedOnExpectedPrice(statesAndTaxesMap, exemptions, value);
         else
             return null;
     }
@@ -50,8 +53,8 @@ public class Product {
         return productName;
     }
 
-    public double getUnitWholesalePrice() {
-        return unitWholesalePrice;
+    public double getWholesalePrice() {
+        return wholesalePrice;
     }
 
     public HashMap<State, Double> getUnitMargins() {
@@ -65,7 +68,7 @@ public class Product {
     public ProductCategory getCategory() {
         return category;
     }
-    
+
     public TreeMap<State, Double> createStatesAndTaxesMap() throws IOException {
         var statesAndCategoriesMap = TaxDataParser.fromUrlIncludeCategories("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
         var statesAndTaxesMap = new TreeMap<State, Double>();
@@ -75,11 +78,25 @@ public class Product {
                     .findFirst();
             double tax = 0.0;
             if (optionalCategoryTax.isPresent()) {
-                tax = optionalCategoryTax.get().getTax() / 100.0;
+                tax = optionalCategoryTax.get().getTax();
             }
             statesAndTaxesMap.put(k, tax);
         });
         return statesAndTaxesMap;
+    }
+
+    public TreeMap<State, Double> createStatesAndTaxExemptionsMap() throws IOException {
+        var statesAndCategoriesMap = TaxDataParser.fromUrlIncludeCategories("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
+        var statesAndTaxExemptions = new TreeMap<State, Double>();
+        statesAndCategoriesMap.forEach((k, v) -> {
+            var optionalCategoryTax = v.stream()
+                    .filter(el -> el.getProductCategory().equals(category))
+                    .findAny();
+            if (optionalCategoryTax.isPresent() && optionalCategoryTax.get().getTaxedAbovePrice() != null) {
+                statesAndTaxExemptions.put(k, Double.valueOf(optionalCategoryTax.get().getTaxedAbovePrice()));
+            }
+        });
+        return statesAndTaxExemptions;
     }
 
     /**
@@ -89,10 +106,10 @@ public class Product {
      * @param minMargin Minimal expected purchase margin
      * @return Map of states and margins, where Key is the state and Value is the corresponding margin
      */
-    private HashMap<State, Double> calculateMarginsBasedOnMinMargin(Map<State, Double> states, double minMargin) {
-        double maxTax = states.values().stream().max(Double::compareTo).orElse(0.0);
-        double maxPrice = (unitWholesalePrice + minMargin) * (1 + maxTax);
-        return calculateMarginsBasedOnExpectedPrice(states, maxPrice);
+    private HashMap<State, Double> calculateMarginsBasedOnMinMargin(Map<State, Double> states, Map<State, Double> exemptions, double minMargin) {
+        double maxTax = states.values().stream().max(Double::compareTo).orElse(0.0) / 100;
+        double maxPrice = (wholesalePrice + minMargin) * (1 + maxTax);
+        return calculateMarginsBasedOnExpectedPrice(states, exemptions, maxPrice);
     }
 
     /**
@@ -102,10 +119,15 @@ public class Product {
      * @param expectedPrice Expected final price
      * @return Map of states and margins, where Key is the state and Value is the corresponding margin
      */
-    private HashMap<State, Double> calculateMarginsBasedOnExpectedPrice(Map<State, Double> states, double expectedPrice) {
+    private HashMap<State, Double> calculateMarginsBasedOnExpectedPrice(Map<State, Double> states, Map<State, Double> exemptions, double expectedPrice) {
         states.forEach((state, tax) -> {
-            double statePrice = expectedPrice / (1 + tax);
-            double stateMargin = statePrice - unitWholesalePrice;
+            double priceWithoutTax = expectedPrice / (1 + tax / 100);
+            var edgePrice = exemptions.get(state);
+            if (edgePrice != null && expectedPrice > edgePrice) {
+                var exTax = state.getBaseTax();
+                priceWithoutTax = expectedPrice / (1 + exTax / 100);
+            }
+            double stateMargin = (priceWithoutTax - wholesalePrice) * quantity;
             unitMargins.put(state, stateMargin);
         });
         return getUnitMargins();

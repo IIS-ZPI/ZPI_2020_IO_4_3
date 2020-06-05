@@ -1,13 +1,12 @@
 package edu.zpi.taxescalculator.utils;
 
-import edu.zpi.taxescalculator.utils.MarginTableEntry;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MarginTableEntryTest {
 
-    private MarginTableEntry marginTableEntry = new MarginTableEntry("Alabama", "124", "49.98", "173.88", "4.00", "4.00", "180.83");
+    private MarginTableEntry marginTableEntry = new MarginTableEntry("Alabama", "124", "49.98", "173.98", "4.00", "4.00", "180.94");
 
     @Test
     void getStateName() {
@@ -16,7 +15,7 @@ class MarginTableEntryTest {
 
     @Test
     void getWholesalePrice() {
-        assertEquals("124", marginTableEntry.getWholesalePrice());
+        assertEquals("124", marginTableEntry.getWholesaleValue());
     }
 
     @Test
@@ -25,8 +24,8 @@ class MarginTableEntryTest {
     }
 
     @Test
-    void getPrice() {
-        assertEquals("173.88", marginTableEntry.getPrice());
+    void getValueIncludingTax() {
+        assertEquals("180.94", marginTableEntry.getValueIncludingTax());
     }
 
     @Test
@@ -35,12 +34,12 @@ class MarginTableEntryTest {
     }
 
     @Test
-    void getPriceWithoutTax() {
-        assertEquals("4.00", marginTableEntry.getPriceWithoutTax());
+    void getValueExcludingTax() {
+        assertEquals("173.98", marginTableEntry.getValueExcludingTax());
     }
 
     @Test
-    void getFinalTax() {
-        assertEquals("180.83", marginTableEntry.getFinalTax());
+    void getTax() {
+        assertEquals("4.00", marginTableEntry.getTax());
     }
 }

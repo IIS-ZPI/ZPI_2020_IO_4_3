@@ -6,10 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 @WebServlet(name = "Servlet", urlPatterns = "/index")
 public class Servlet extends HttpServlet {
@@ -20,8 +16,7 @@ public class Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("act") == null) {
             response.sendRedirect("/");
-        }
-        else {
+        } else {
             String str = request.getParameter("act");
             if (str.equalsIgnoreCase("margin")) {
                 response.sendRedirect("/select_product");

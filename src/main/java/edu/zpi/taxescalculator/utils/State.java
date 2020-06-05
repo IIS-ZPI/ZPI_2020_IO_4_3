@@ -10,8 +10,9 @@ public class State implements Comparable<State> {
 
     /**
      * Create a new State instance with specified state name and basic tax
+     *
      * @param stateName Name of the state
-     * @param baseTax Basic tax on current state
+     * @param baseTax   Basic tax on current state
      */
     public State(String stateName, double baseTax) {
         this.stateName = stateName;
