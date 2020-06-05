@@ -1,7 +1,9 @@
 package edu.zpi.taxescalculator.utils;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Class that stores basic information about single product
@@ -17,9 +19,9 @@ public class Product {
     /**
      * Create a new instance of Product with specified product name, stock price and minimal expected purchase margin
      *
-     * @param productName        Name of product
+     * @param productName    Name of product
      * @param wholesalePrice Product price in stock
-     * @param category           Product's category
+     * @param category       Product's category
      */
     public Product(String productName, double wholesalePrice, int quantity, ProductCategory category) {
         this.productName = productName;

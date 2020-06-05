@@ -10,8 +10,8 @@ import java.util.Locale;
 
 public class StatesTableEntry {
     private static final NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
-    
-    
+
+
     private String stateName;
     private String baseTax;
     private String groceryTax;
@@ -20,12 +20,13 @@ public class StatesTableEntry {
     private String nonPrescriptionDrugTax;
     private String clothingTax;
     private String intangiblesTax;
-    
+
     /**
      * Creates a new instance of StatesTableEntry
+     *
      * @param stateName Name of the state
-     * @param baseTax Basic tax
-     * @param taxes List of taxes based on product's categories
+     * @param baseTax   Basic tax
+     * @param taxes     List of taxes based on product's categories
      */
     public StatesTableEntry(String stateName, String baseTax, List<ProductCategoryStateTaxData> taxes) {
         nf.setMinimumFractionDigits(2);
@@ -34,7 +35,7 @@ public class StatesTableEntry {
         this.baseTax = baseTax;
         initTaxes(taxes);
     }
-    
+
     private void initTaxes(List<ProductCategoryStateTaxData> taxes) {
         for (var t : taxes) {
             var tax = nf.format(t.getTax());

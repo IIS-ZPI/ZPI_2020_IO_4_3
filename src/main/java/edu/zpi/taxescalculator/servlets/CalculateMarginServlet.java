@@ -1,6 +1,8 @@
 package edu.zpi.taxescalculator.servlets;
 
-import edu.zpi.taxescalculator.utils.*;
+import edu.zpi.taxescalculator.utils.MarginTableEntry;
+import edu.zpi.taxescalculator.utils.Product;
+import edu.zpi.taxescalculator.utils.ProductCategory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.Locale;
 
 @WebServlet(name = "CalculateMarginServlet", urlPatterns = "/margin_calculator")
 public class CalculateMarginServlet extends HttpServlet {
@@ -20,13 +22,11 @@ public class CalculateMarginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("product") == null ||
                 request.getParameter("value_calc") == null
-                || request.getParameter("wholesale_price") == null 
+                || request.getParameter("wholesale_price") == null
                 || request.getParameter("calculation_type") == null
-                || request.getParameter("quantity") == null)
-        {
+                || request.getParameter("quantity") == null) {
             response.sendRedirect("select_product_price");
-        }
-        else {
+        } else {
             NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
             nf.setMaximumFractionDigits(2);
             nf.setMinimumFractionDigits(2);
@@ -43,14 +43,14 @@ public class CalculateMarginServlet extends HttpServlet {
                 response.sendRedirect("select_product_price");
                 return;
             }
-            
+
             if (calculationValue < 0 || wholesalePrice < 0) {
                 response.sendRedirect("select_product_price");
                 return;
             }
 
             Product product = new Product(productName, wholesalePrice, quantity, category);
-            
+
             var entries = MarginTableEntry.createEntriesList(product, calculationValue, calculationType);
             if (entries == null) {
                 response.sendRedirect("select_product_price");
@@ -62,7 +62,7 @@ public class CalculateMarginServlet extends HttpServlet {
             request.setAttribute("category", category);
             request.setAttribute("quantity", quantity);
             request.getRequestDispatcher("/margin.jsp").forward(request, response);
-        
+
         }
     }
 }
