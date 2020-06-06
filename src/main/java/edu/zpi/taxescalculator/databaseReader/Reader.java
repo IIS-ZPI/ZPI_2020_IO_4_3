@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Reader {
     public Statement statement;
@@ -19,6 +20,42 @@ public class Reader {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean insertTaxBaseOnCategory(int stateId, int categoryId, double taxValue, Integer taxAbove){
+        System.out.println(stateId + " " + categoryId);
+        try {
+            String sql;
+            if(taxAbove != null){
+                sql = "INSERT INTO zpi2020io43.taxesoncategories (IdCategory, IdState, TaxOnCategoryValue, IsTaxedAbovePrice) " +
+                        "VALUES (\"" + categoryId + "\", \"" + stateId + "\", \"" + taxValue + "\" , \"" + taxAbove + "\")";
+            }else{
+                sql = "INSERT INTO zpi2020io43.taxesoncategories (IdCategory, IdState, TaxOnCategoryValue) " +
+                        "VALUES (\"" + categoryId + "\", \"" + stateId + "\", \"" + taxValue + "\")";
+            }
+
+
+            int result = statement.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean insertState(String stateName, String baseSalesTax){
+        try {
+            String sql = "INSERT INTO zpi2020io43.states " +
+                    "(StateName, StateBaseTax) " +
+                    "VALUES (\"" + stateName + "\", \"" + baseSalesTax + "\")";
+            int result = statement.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public ArrayList<String> getAllCategoryName(){
@@ -116,10 +153,9 @@ public class Reader {
         ResultSet rs = null;
         ArrayList<String> arrayList = new ArrayList<>();
         try {
-            String sql = "select TaxOnCategoryValue, taxexplanation.ExplanationName from taxesoncategories\n" +
+            String sql = "select TaxOnCategoryValue, IsTaxedAbovePrice from taxesoncategories\n" +
                     "JOIN categories ON categories.IdCategory = taxesoncategories.IdCategory\n" +
                     "JOIN states ON states.IdState = taxesoncategories.IdState\n" +
-                    "JOIN taxexplanation ON taxexplanation.IdTaxExplanation = taxesoncategories.IdTaxExplanation\n" +
                     "where states.StateName = \"" + state + "\" and categories.CategoryName = \"" + category + "\"";
             rs = statement.executeQuery(sql);
             while(rs.next()) {
