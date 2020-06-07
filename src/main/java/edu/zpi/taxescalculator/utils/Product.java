@@ -1,6 +1,9 @@
 package edu.zpi.taxescalculator.utils;
 
+import edu.zpi.taxescalculator.databaseReader.DatabaseSingleton;
+
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -38,15 +41,59 @@ public class Product {
      * @param calculationType Type of calculation (min margin or expected price)
      * @return Map of states and margins, where Key is the state and Value is the corresponding margin
      */
-    public HashMap<State, Double> calculateMargins(double value, String calculationType) throws IOException {
+    public HashMap<State, Double> calculateMargins(double value, CalculationType calculationType) throws IOException {
         var statesAndTaxesMap = createStatesAndTaxesMap();
         var exemptions = createStatesAndTaxExemptionsMap();
-        if (calculationType.equalsIgnoreCase("min_margin"))
+        if (calculationType == CalculationType.MIN_MARGIN)
             return calculateMarginsBasedOnMinMargin(statesAndTaxesMap, exemptions, value);
-        else if (calculationType.equalsIgnoreCase("expected_price"))
+        else if (calculationType == CalculationType.EXPECTED_PRICE)
             return calculateMarginsBasedOnExpectedPrice(statesAndTaxesMap, exemptions, value);
         else
             return null;
+    }
+
+    /**
+     * @return Map of States and corresponding taxes for this product (excluding exemptions)
+     * @throws ConnectException When detects a database connection problem
+     */
+    public TreeMap<State, Double> createStatesAndTaxesMap() throws ConnectException {
+        var statesAndCategoriesMap = DatabaseSingleton.getInstance()
+                .connect()
+                .getStatesAndTaxes();
+        
+        var statesAndTaxesMap = new TreeMap<State, Double>();
+        statesAndCategoriesMap.forEach((k, v) -> {
+            var optionalCategoryTax = v.stream()
+                    .filter(el -> el.getProductCategory().equals(category))
+                    .findFirst();
+            double tax = 0.0;
+            if (optionalCategoryTax.isPresent()) {
+                tax = optionalCategoryTax.get().getTax();
+            }
+            statesAndTaxesMap.put(k, tax);
+        });
+        return statesAndTaxesMap;
+    }
+
+    /**
+     * @return Map of States and corresponding taxes for this product (including exemptions)
+     * @throws ConnectException When detects a database connection problem
+     */
+    public TreeMap<State, Double> createStatesAndTaxExemptionsMap() throws ConnectException {
+        var statesAndCategoriesMap = DatabaseSingleton.getInstance()
+                .connect()
+                .getStatesAndTaxes();
+        
+        var statesAndTaxExemptions = new TreeMap<State, Double>();
+        statesAndCategoriesMap.forEach((k, v) -> {
+            var optionalCategoryTax = v.stream()
+                    .filter(el -> el.getProductCategory().equals(category))
+                    .findAny();
+            if (optionalCategoryTax.isPresent() && optionalCategoryTax.get().getTaxedAbovePrice() != null) {
+                statesAndTaxExemptions.put(k, Double.valueOf(optionalCategoryTax.get().getTaxedAbovePrice()));
+            }
+        });
+        return statesAndTaxExemptions;
     }
 
     public String getProductName() {
@@ -67,36 +114,6 @@ public class Product {
 
     public ProductCategory getCategory() {
         return category;
-    }
-
-    public TreeMap<State, Double> createStatesAndTaxesMap() throws IOException {
-        var statesAndCategoriesMap = TaxDataParser.fromUrlIncludeCategories("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
-        var statesAndTaxesMap = new TreeMap<State, Double>();
-        statesAndCategoriesMap.forEach((k, v) -> {
-            var optionalCategoryTax = v.stream()
-                    .filter(el -> el.getProductCategory().equals(category))
-                    .findFirst();
-            double tax = 0.0;
-            if (optionalCategoryTax.isPresent()) {
-                tax = optionalCategoryTax.get().getTax();
-            }
-            statesAndTaxesMap.put(k, tax);
-        });
-        return statesAndTaxesMap;
-    }
-
-    public TreeMap<State, Double> createStatesAndTaxExemptionsMap() throws IOException {
-        var statesAndCategoriesMap = TaxDataParser.fromUrlIncludeCategories("https://en.wikipedia.org/wiki/Sales_taxes_in_the_United_States");
-        var statesAndTaxExemptions = new TreeMap<State, Double>();
-        statesAndCategoriesMap.forEach((k, v) -> {
-            var optionalCategoryTax = v.stream()
-                    .filter(el -> el.getProductCategory().equals(category))
-                    .findAny();
-            if (optionalCategoryTax.isPresent() && optionalCategoryTax.get().getTaxedAbovePrice() != null) {
-                statesAndTaxExemptions.put(k, Double.valueOf(optionalCategoryTax.get().getTaxedAbovePrice()));
-            }
-        });
-        return statesAndTaxExemptions;
     }
 
     /**

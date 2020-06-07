@@ -1,5 +1,7 @@
 package edu.zpi.taxescalculator.servlets;
 
+import edu.zpi.taxescalculator.databaseReader.DatabaseSingleton;
+import edu.zpi.taxescalculator.utils.CalculationType;
 import edu.zpi.taxescalculator.utils.MarginTableEntry;
 import edu.zpi.taxescalculator.utils.Product;
 import edu.zpi.taxescalculator.utils.ProductCategory;
@@ -30,9 +32,9 @@ public class CalculateMarginServlet extends HttpServlet {
             NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
             nf.setMaximumFractionDigits(2);
             nf.setMinimumFractionDigits(2);
-
+            
             String productName = request.getParameter("product");
-            String calculationType = request.getParameter("calculation_type");
+            var calculationType = CalculationType.valueOf(request.getParameter("calculation_type").toUpperCase());
             double calculationValue = Double.parseDouble(request.getParameter("value_calc"));
             double wholesalePrice = Double.parseDouble(request.getParameter("wholesale_price"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -56,9 +58,9 @@ public class CalculateMarginServlet extends HttpServlet {
                 response.sendRedirect("select_product_price");
                 return;
             }
-
+            var productDescription = DatabaseSingleton.getInstance().connect().getProductDescription(productName);
             request.setAttribute("entries", entries);
-            request.setAttribute("product", productName);
+            request.setAttribute("product", productDescription);
             request.setAttribute("category", category);
             request.getRequestDispatcher("/margin.jsp").forward(request, response);
 

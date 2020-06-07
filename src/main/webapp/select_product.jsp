@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -37,19 +38,22 @@
                         <div class="form-group mb-2">
                             <select class="custom-select mb-2 custom-select-lg" name="product" required>
                                 <option value="" disabled selected>Choose product</option>
-                                <option value="Milk">Milk</option>
-                                <option value="Eggs">Eggs</option>
-                                <option value="Sausage">Sausage</option>
+                                <c:forEach items="${products}" var="product">
+                                    <option value="${product.getCodeName()}">${product.getDisplayName()}</option>
+                                </c:forEach>
+<%--                                <option value="Milk">Milk</option>--%>
+<%--                                <option value="Eggs">Eggs</option>--%>
+<%--                                <option value="Sausage">Sausage</option>--%>
                             </select>
-                            <select class="custom-select mb-2 custom-select-lg" name="category" required>
-                                <option value="" disabled selected>Choose category</option>
-                                <option value="grocery">Groceries</option>
-                                <option value="prepared_food">Prepared food</option>
-                                <option value="prescription_drug">Prescription drugs</option>
-                                <option value="non_prescription_drug">Non prescription drugs</option>
-                                <option value="clothing">Clothing</option>
-                                <option value="intangibles">Intangibles</option>
-                            </select>
+<%--                            <select class="custom-select mb-2 custom-select-lg" name="category" required>--%>
+<%--                                <option value="" disabled selected>Choose category</option>--%>
+<%--                                <option value="grocery">Groceries</option>--%>
+<%--                                <option value="prepared_food">Prepared food</option>--%>
+<%--                                <option value="prescription_drug">Prescription drugs</option>--%>
+<%--                                <option value="non_prescription_drug">Non prescription drugs</option>--%>
+<%--                                <option value="clothing">Clothing</option>--%>
+<%--                                <option value="intangibles">Intangibles</option>--%>
+<%--                            </select>--%>
                             <div class="btn-group btn-group-toggle mb-2" data-toggle="buttons">
                                 <label class="btn btn-default active mb-2">
                                     <input type="radio" name="calculation_type" autocomplete="off" checked value="min_margin"> Minimum margin

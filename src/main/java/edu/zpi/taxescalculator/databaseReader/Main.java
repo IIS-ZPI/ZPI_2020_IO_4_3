@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         DataSourceProvider dataSourceProvider = new DataSourceProvider();
         dataSourceProvider.init();
         Reader r = new Reader(dataSourceProvider.getDataStatement());
@@ -49,7 +49,8 @@ public class Main {
 //        ArrayList arrayList = r.getProductWholesalePrice("Milk");
 //        System.out.println(arrayList);
 //
-        ArrayList arrayList = r.getTaxValueBaseOnCategoryInState("Arkansas", "Prescription drug");
+        ArrayList arrayList = r.getTaxValueBaseOnCategoryInState("Arkansas", "PRESCRIPTION_DRUG");
+        dataSourceProvider.closeConnection();
         System.out.println(arrayList);
 
     }

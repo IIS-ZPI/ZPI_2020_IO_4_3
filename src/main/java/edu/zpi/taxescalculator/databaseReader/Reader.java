@@ -87,6 +87,36 @@ public class Reader {
         }
         return arrayList;
     }
+    
+    public ArrayList<String> getProductDisplayName(String productName) {
+        ResultSet rs = null;
+        ArrayList<String> arrayList = new ArrayList<>();
+        try {
+            String sql = "select ProductDisplayName from products where ProductName = \"" + productName +"\"";
+            rs = statement.executeQuery(sql);
+            while(rs.next()) {
+                arrayList.add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arrayList;
+    }
+
+    public ArrayList<String> getProductImage(String productName) {
+        ResultSet rs = null;
+        ArrayList<String> arrayList = new ArrayList<>();
+        try {
+            String sql = "select ProductImage from products where ProductName = \"" + productName +"\"";
+            rs = statement.executeQuery(sql);
+            while(rs.next()) {
+                arrayList.add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arrayList;
+    }
 
     public ArrayList<String> getProductCategory(String productName){
         ResultSet rs = null;

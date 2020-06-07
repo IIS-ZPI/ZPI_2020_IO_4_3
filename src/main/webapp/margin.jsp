@@ -34,7 +34,7 @@
         <div class="row">
             <div class="mx-auto col-lg-6">
                 <h1 class="">Margin table for goods</h1>
-                <h3>${product}, ${category.mapToEnglishName()}</h3>
+                <h3>${product.getDisplayName()}, ${category.mapToEnglishName()}</h3>
             </div>
         </div>
 
@@ -42,21 +42,23 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <c:choose>
-                            <c:when test="${product=='Milk'}">
-                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-25" src="/images/milk.jfif"></div>
-                            </c:when>
-                            <c:when test="${product=='Eggs'}">
-                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-25" src="/images/eggs.jpg"></div>
-                            </c:when>
-                            <c:when test="${product=='Sausage'}">
-                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-75" src="/images/sausage.jpg"></div>
-                            </c:when>
-                        </c:choose>
+<%--                        <c:choose>--%>
+<%--                            <c:when test="${product=='Milk'}">--%>
+<%--                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-25" src="/images/milk.jfif"></div>--%>
+<%--                            </c:when>--%>
+<%--                            <c:when test="${product=='Eggs'}">--%>
+<%--                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-25" src="/images/eggs.jpg"></div>--%>
+<%--                            </c:when>--%>
+<%--                            <c:when test="${product=='Sausage'}">--%>
+<%--                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-75" src="/images/sausage.jpg"></div>--%>
+<%--                            </c:when>--%>
+<%--                        </c:choose>--%>
+                        <div class="col-md-6 mx-auto"><img class="img-fluid d-block rounded-circle mx-auto my-2 w-50" src="${product.getImg()}"></div>
                     </div>
                 </div>
             </div>
-            <div class="mx-auto p-4 col-md-10 w-100" style="">
+        </div>
+        <div class="mx-auto p-4 col-md-10 w-100" style="">
                 <div class="table-striped table-hover">
                     <table class="table table-dark table-fixed table-bordered" id="scrollableTable" >
                         <thead class="default-color-dark white-text" >
