@@ -32,24 +32,15 @@
         <div class="row">
             <div class="mx-auto col-lg-6">
                 <h1 class="mt-5" > Chosen product</h1>
-                <p class="mb-4">${product}, ${category.mapToEnglishName()}</p>
+                <p class="mb-4">${product.getDisplayName()}, ${category.mapToEnglishName()}</p>
             </div>
         </div>
         <div class="row">
-            <c:choose>
-                <c:when test="${product=='Milk'}">
-                    <div class="col-md-6"><img class="img-fluid d-block rounded-circle mx-auto my-2 w-50" src="/images/milk.jfif"></div>
-                </c:when>
-                <c:when test="${product=='Eggs'}">
-                    <div class="col-md-6"><img class="img-fluid d-block rounded-circle mx-auto my-2 w-50" src="/images/eggs.jpg"></div>
-                </c:when>
-                <c:when test="${product=='Sausage'}">
-                    <div class="col-md-6"><img class="img-fluid d-block rounded-circle mx-auto my-2 w-50" src="/images/sausage.jpg"></div>
-                </c:when>
-            </c:choose>
+
+            <div class="col-md-6"><img class="img-fluid d-block rounded-circle mx-auto my-5 w-50" src="${product.getImg()}"></div>
             <div class="col-md-6 mt-5">
                 <form action="margin_calculator" method="get">
-                    <input type="hidden" name="product" value="${product}">
+                    <input type="hidden" name="product" value="${product.getCodeName()}">
                     <input type="hidden" name="category" value="${category}">
                     <input type="hidden" name="calculation_type" value="${calculation_type}">
                     <div class="form-group row">

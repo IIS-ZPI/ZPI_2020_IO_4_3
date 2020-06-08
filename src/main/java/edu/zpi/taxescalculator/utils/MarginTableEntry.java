@@ -46,7 +46,7 @@ public class MarginTableEntry {
         this.tax = tax;
     }
 
-    public static List<MarginTableEntry> createEntriesList(Product product, double calculationValue, String calculationType) throws IOException {
+    public static List<MarginTableEntry> createEntriesList(Product product, double calculationValue, CalculationType calculationType) throws IOException {
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
         nf.setMaximumFractionDigits(2);
         nf.setMinimumFractionDigits(2);

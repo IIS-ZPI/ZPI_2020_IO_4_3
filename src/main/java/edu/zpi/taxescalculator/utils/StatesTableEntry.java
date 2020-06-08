@@ -1,6 +1,10 @@
 package edu.zpi.taxescalculator.utils;
 
+import edu.zpi.taxescalculator.databaseReader.DatabaseSingleton;
+
+import java.net.ConnectException;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,6 +38,21 @@ public class StatesTableEntry {
         this.stateName = stateName;
         this.baseTax = baseTax;
         initTaxes(taxes);
+    }
+
+    public static List<StatesTableEntry> 
+    createEntriesList() throws ConnectException {
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+        var statesMap = DatabaseSingleton.getInstance()
+                .connect()
+                .getStatesAndTaxes();
+
+        List<StatesTableEntry> statesEntries = new ArrayList<>();
+        statesMap.forEach((k, v) -> {
+            statesEntries.add(new StatesTableEntry(k.getStateName(), nf.format(k.getBaseTax()), v));
+        });
+        return statesEntries;
     }
 
     private void initTaxes(List<ProductCategoryStateTaxData> taxes) {

@@ -28,7 +28,7 @@
 </div>
 
 
-<div class="py-5 text-center align-items-center d-flex" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .9)), url('/images/homePage.jpg'); background-size: 100%;" >
+<div class="py-5 text-center align-items-center d-flex" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .9)), url('/images/background/homePage.jpg'); background-size: 100%;" >
     <div class="container py-5">
         <div class="row text-white" >
             <div class="col-md-8 mx-auto">
@@ -37,7 +37,7 @@
         </div>
     </div>
 </div>
-<div class="py-5 text-center" style="	background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .9)), url('/images/teams.jpg');	background-position: top left;	background-size: 100%;	background-repeat: repeat;" >
+<div class="py-5 text-center" style="	background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .9)), url('/images/background/teams.jpg');	background-position: top left;	background-size: 100%;	background-repeat: repeat;" >
     <div class="container">
         <div class="row">
             <div class="mx-auto col-md-12">
@@ -45,19 +45,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/Maciej.jpg" width="100">
+            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/teams/Maciej.jpg" width="100">
                 <h4> <b>Maciej</b></h4>
                 <p>Developer<br>TeamLider</p>
             </div>
-            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/Jacek.jpg" width="100">
+            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/teams/Jacek.jpg" width="100">
                 <h4> <b>Jacek</b></h4>
                 <p>Developer</p>
             </div>
-            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/Wojtek.jpg" width="100">
+            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/teams/Wojtek.jpg" width="100">
                 <h4> <b>Wojciech</b></h4>
                 <p>Developer</p>
             </div>
-            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/Paulina.jpg" width="100">
+            <div class="col-lg-3 col-6 p-4 text-white"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="/images/teams/Paulina.jpg" width="100">
                 <h4> <b>Paulina</b></h4>
                 <p>Tester</p>
             </div>

@@ -1,5 +1,7 @@
 package edu.zpi.taxescalculator.servlets;
 
+import edu.zpi.taxescalculator.databaseReader.DatabaseSingleton;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,8 @@ public class SelectProductServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        var productNames = DatabaseSingleton.getInstance().connect().getProductDescriptionList();
+        request.setAttribute("products", productNames);
         request.getRequestDispatcher("select_product.jsp").forward(request, response);
     }
 }
