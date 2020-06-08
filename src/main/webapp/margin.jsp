@@ -42,17 +42,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-<%--                        <c:choose>--%>
-<%--                            <c:when test="${product=='Milk'}">--%>
-<%--                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-25" src="/images/milk.jfif"></div>--%>
-<%--                            </c:when>--%>
-<%--                            <c:when test="${product=='Eggs'}">--%>
-<%--                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-25" src="/images/eggs.jpg"></div>--%>
-<%--                            </c:when>--%>
-<%--                            <c:when test="${product=='Sausage'}">--%>
-<%--                                <img class="img-fluid d-block my-2 mx-auto mt-4 w-75" src="/images/sausage.jpg"></div>--%>
-<%--                            </c:when>--%>
-<%--                        </c:choose>--%>
+
                         <div class="col-md-6 mx-auto"><img class="img-fluid d-block rounded-circle mx-auto my-2 w-50" src="${product.getImg()}"></div>
                     </div>
                 </div>
