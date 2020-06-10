@@ -33,7 +33,7 @@
         <div class="row">
             <div class="mx-auto col-lg-6">
                 <h1 class="mt-5" > Choose your product</h1>
-                <p class="mb-4">Yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian sun strikes.</p>
+                <p class="mb-4">You have two types of calculations: minimum margin or expected price.</p>
                     <form action="select_product_price" method="get">
                         <div class="form-group mb-2">
                             <select class="custom-select mb-2 custom-select-lg" name="product" required>
