@@ -38,7 +38,7 @@
         <div class="row">
 
             <div class="col-md-6">
-                <img class="img-fluid d-block rounded-circle mx-auto my-5 w-50" src="${product.getImg()}" style="	box-shadow: 0px 0px 100px  lightblue;" >
+                <img class="img-fluid d-block rounded-circle mx-auto my-5 w-50" src="${product.getImg()}" style="	box-shadow: 0px 0px 15px  lightblue;" >
             </div>
             <div class="col-md-6 mt-5">
                 <form action="margin_calculator" method="get">

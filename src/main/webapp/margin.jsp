@@ -42,7 +42,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <img class="img-fluid d-block rounded-circle mx-auto my-5 w-25" src="${product.getImg()}" style="	box-shadow: 0px 0px 100px  lightblue;" >
+                        <img class="img-fluid d-block rounded-circle mx-auto my-5 w-25" src="${product.getImg()}" style="	box-shadow: 0px 0px 15px  lightblue;" >
                     </div>
                 </div>
             </div>
