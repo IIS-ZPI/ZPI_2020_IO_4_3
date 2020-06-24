@@ -53,14 +53,14 @@
                         <thead class="default-color-dark white-text" >
                         <tr>
                             <td>State</td>
-                            <td>Wholesale price</td>
+                            <td>Wholesale price (USD)</td>
                             <td>Quantity</td>
-                            <td>Wholesale value</td>
-                            <td>Margin</td>
-                            <td>Value excluding tax</td>
-                            <td>Tax value</td>
+                            <td>Wholesale value (USD)</td>
+                            <td>Margin (USD)</td>
+                            <td>Value excluding tax (USD)</td>
+                            <td>Tax value (USD)</td>
                             <td>Tax (%)</td>
-                            <td>Value including tax</td>
+                            <td>Value including tax (USD)</td>
                         </tr>
                         </thead>
                         <tbody class="default-color white-text">
